@@ -1,0 +1,32 @@
+{
+  "name": "agente-comercial-cnpj-360",
+  "version": "1.0.0",
+  "description": "Sistema desktop para consulta e inteligência comercial de CNPJs",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win",
+    "lint": "echo 'Sem lint configurado'"
+  },
+  "build": {
+    "appId": "br.com.cnpj360.app",
+    "productName": "Agente Comercial CNPJ 360",
+    "directories": {
+      "output": "dist"
+    },
+    "files": ["src/**/*", "package.json", "README.md", "examples/**/*"],
+    "win": {
+      "target": "nsis"
+    }
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.8.1",
+    "csv-parse": "^5.6.0",
+    "electron-store": "^10.0.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "electron": "^31.7.7",
+    "electron-builder": "^24.13.3"
+  }
+}
