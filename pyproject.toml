@@ -1,0 +1,12 @@
+[project]
+name = "agente-cnpj"
+version = "0.1.0"
+description = "Agente simples para validar e consultar CNPJ"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+agente-cnpj = "agente_cnpj.cli:main"
+
+[tool.setuptools]
+packages = ["agente_cnpj"]

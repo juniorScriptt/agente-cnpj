@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Agente CNPJ | Scriptt</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace" aria-label="Consulta de CNPJ">
+        <header class="topbar">
+          <div class="brand-heading">
+            <img class="brand-logo" src="/assets/logo-scriptt.png" alt="Scriptt">
+          <div>
+              <span class="eyebrow">Scriptt Credit Desk</span>
+              <h1>Análise de CNPJ e crédito</h1>
+              <p>Consulta cadastral, validação interna e apoio à decisão comercial.</p>
+            </div>
+          </div>
+          <div class="top-actions">
+            <span class="status-chip">BrasilAPI + Minha Receita</span>
+            <button type="button" class="secondary-button" data-new>Nova consulta</button>
+          </div>
+        </header>
+
+        <nav class="flow-nav" aria-label="Fluxos principais">
+          <button type="button" class="tab-button is-active" data-tab="dashboard">Dashboard</button>
+          <button type="button" class="tab-button" data-tab="consulta">Consulta CNPJ</button>
+          <button type="button" class="tab-button" data-tab="clientes">Clientes GEST</button>
+          <button type="button" class="tab-button" data-tab="resultado">Resultado</button>
+          <button type="button" class="tab-button" data-tab="resumo">Resumo</button>
+          <button type="button" class="tab-button" data-tab="credito-serasa">Crédito Serasa</button>
+          <button type="button" class="tab-button" data-tab="referencias">Referências</button>
+          <button type="button" class="tab-button" data-tab="admin">Admin</button>
+        </nav>
+
+        <section class="dashboard-panel app-view is-active" data-view="dashboard">
+          <div class="panel-header">
+            <h2>Dashboard executivo</h2>
+            <span class="status-chip">Gestão de crédito</span>
+          </div>
+          <div class="dashboard-grid" data-dashboard>
+            <article>
+              <span>Consultas locais</span>
+              <strong>0</strong>
+              <p>Histórico de CNPJ pesquisado nesta estação.</p>
+            </article>
+            <article>
+              <span>Crédito Serasa</span>
+              <strong>Mock</strong>
+              <p>Pronto para sandbox ou produção por variável de ambiente.</p>
+            </article>
+            <article>
+              <span>Última análise</span>
+              <strong>Nenhuma</strong>
+              <p>Consulte um CNPJ/CPF para gerar o resumo individual.</p>
+            </article>
+          </div>
+          <div class="dashboard-actions">
+            <button type="button" data-tab-target="consulta">Nova consulta CNPJ</button>
+            <button type="button" class="secondary-button" data-tab-target="credito-serasa">Análise de crédito</button>
+            <button type="button" class="secondary-button" data-tab-target="clientes">Validar carteira GEST</button>
+            <button type="button" class="secondary-button" data-clear-current>Limpar tela atual</button>
+          </div>
+        </section>
+
+        <section class="search-panel app-view" id="consulta" data-view="consulta">
+          <form data-form>
+            <label for="cnpj">CNPJ</label>
+            <div class="search-row">
+              <input
+                id="cnpj"
+                name="cnpj"
+                type="text"
+                inputmode="numeric"
+                autocomplete="off"
+                placeholder="00.000.000/0000-00"
+                maxlength="18"
+                data-cnpj
+              >
+              <button type="submit" data-submit>Consultar</button>
+            </div>
+            <p class="status-line" data-status data-type="idle">Pronto para consultar.</p>
+          </form>
+
+          <div class="local-search">
+            <label for="history-search">Busca no historico</label>
+            <input
+              id="history-search"
+              type="search"
+              autocomplete="off"
+              placeholder="Razao social, fantasia, cidade ou CNPJ"
+              data-history-search
+            >
+          </div>
+        </section>
+
+        <section class="traffic-panel app-view" data-traffic-panel data-view="consulta">
+          <div class="traffic-light" data-traffic-light="idle">
+            <span data-light="red"></span>
+            <span data-light="yellow"></span>
+            <span data-light="green"></span>
+          </div>
+          <div>
+            <h2 data-traffic-title>Pronto para consultar</h2>
+            <p data-traffic-message>Informe um CNPJ ou selecione um cliente do GEST para iniciar a análise.</p>
+          </div>
+        </section>
+
+        <section class="clients-panel app-view" id="clientes" data-view="clientes">
+          <div class="panel-header">
+            <h2>Clientes do banco GEST</h2>
+          </div>
+          <div class="gest-filters">
+            <label>
+              Periodo inicial
+              <input type="date" data-gest-start>
+            </label>
+            <label>
+              Periodo final
+              <input type="date" data-gest-end>
+            </label>
+            <label>
+              Nome
+              <input type="search" placeholder="Razao ou fantasia" data-gest-search>
+            </label>
+            <label>
+              Codigo
+              <input type="search" inputmode="numeric" placeholder="CODCLI" data-gest-code>
+            </label>
+            <label>
+              CNPJ
+              <input type="search" inputmode="numeric" placeholder="00.000.000/0000-00" data-gest-cnpj>
+            </label>
+            <label class="checkbox-field">
+              <input type="checkbox" data-gest-outside-manaus>
+              Apenas fora de Manaus
+            </label>
+            <button type="button" data-load-clients>Buscar clientes</button>
+          </div>
+          <div class="clients-status" data-clients-status>Use Carregar para trazer clientes do CADCLI.</div>
+          <div class="clients-table" data-clients></div>
+        </section>
+
+        <section class="credit-panel app-view" id="credito" data-view="dashboard">
+          <div class="panel-header">
+            <h2>Análise de crédito</h2>
+            <span class="status-chip">Preparado</span>
+          </div>
+          <div class="credit-grid">
+            <article>
+              <h3>Fontes públicas gratuitas</h3>
+              <p>CNPJ ativo, idade da empresa, CNAE, capital social, QSA, endereço, contatos e consistência com o cadastro GEST.</p>
+            </article>
+            <article>
+              <h3>Historico interno</h3>
+              <p>Vendas, recebimentos, atrasos, limite atual, bloqueios e recorrencia do cliente no GEST.</p>
+            </article>
+            <article>
+              <h3>APIs pagas que somam</h3>
+              <p>Sintegra API para IE, Serasa, Boa Vista/SCPC, Quod, protestos, processos e score de mercado.</p>
+            </article>
+            <article>
+              <h3>Decisão assistida</h3>
+              <p>O app sugere sinais, cuidados e limites. A aprovação final continua sendo do usuário.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="result-panel app-view" id="resultado" aria-live="polite" data-view="resultado">
+          <div class="panel-header">
+            <h2>Resultado</h2>
+            <div class="panel-actions">
+              <button type="button" class="secondary-button icon-button" data-export-csv disabled><span>CSV</span></button>
+              <button type="button" class="secondary-button icon-button" data-print-report disabled><span>Imprimir</span></button>
+              <button type="button" class="secondary-button icon-button" data-export-pdf disabled><span>PDF</span></button>
+            </div>
+          </div>
+          <div data-result></div>
+        </section>
+
+        <section class="serasa-panel app-view" id="credito-serasa" data-view="credito-serasa">
+          <div class="panel-header">
+            <h2>Módulo Serasa + Análise Forte de Crédito</h2>
+            <span class="status-chip" data-serasa-status>Mock/Sandbox</span>
+          </div>
+          <div class="serasa-layout">
+            <form class="serasa-form" data-serasa-form>
+              <label>
+                Documento
+                <input type="text" placeholder="CNPJ ou CPF" data-serasa-document>
+              </label>
+              <label>
+                Usuário
+                <input type="text" value="admin@scriptt" data-serasa-user>
+              </label>
+              <label class="wide-field">
+                Motivo da consulta
+                <input type="text" value="Análise de crédito para venda a prazo" data-serasa-reason>
+              </label>
+              <label>
+                Base legal/finalidade
+                <input type="text" value="Proteção ao crédito" data-serasa-legal>
+              </label>
+              <button type="submit">Executar análise</button>
+              <button type="button" class="secondary-button" data-serasa-print disabled>Imprimir resumo A4</button>
+            </form>
+            <div class="serasa-board" data-serasa-board>
+              <article>
+                <h3>Integração protegida</h3>
+                <p>A Serasa é chamada somente pelo backend. Enquanto não houver credenciais reais, o app usa mock/sandbox com auditoria local.</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="partners-box">
+            <div class="panel-header compact-header">
+              <h2>Análise de sócios por CPF</h2>
+              <span class="status-chip">Manual/LGPD</span>
+            </div>
+            <div class="partner-layout">
+              <div data-partners-list class="partners-list">
+                <strong>Nenhum QSA carregado</strong>
+                <span>Ao consultar um CNPJ, os sócios aparecem aqui. CPFs mascarados exigem preenchimento manual autorizado.</span>
+              </div>
+              <form class="partner-form" data-partner-form>
+                <label>
+                  Sócio
+                  <input type="text" placeholder="Nome do sócio" data-partner-name>
+                </label>
+                <label>
+                  CPF autorizado
+                  <input type="text" placeholder="000.000.000-00" data-partner-cpf>
+                </label>
+                <button type="submit">Analisar CPF do sócio</button>
+              </form>
+            </div>
+            <div data-partners-result class="partners-result"></div>
+          </div>
+
+          <div class="portfolio-box">
+            <div class="panel-header compact-header">
+              <h2>Análise de carteira</h2>
+              <button type="button" class="secondary-button" data-portfolio-run>Analisar carteira</button>
+            </div>
+            <div class="portfolio-grid">
+              <label>
+                Lista de CPF/CNPJ
+                <textarea data-portfolio-documents placeholder="Cole um documento por linha para análise em lote."></textarea>
+              </label>
+              <div data-portfolio-result class="portfolio-result">
+                <strong>Aguardando documentos</strong>
+                <span>O retorno mostra faixas de risco, restrições, ranking, limite total recomendado e alertas prioritários.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="recommendations-panel app-view" data-view="resultado">
+          <div class="panel-header">
+            <h2>Recomendações</h2>
+            <span class="status-chip" data-recommendation-score>Aguardando consulta</span>
+          </div>
+          <div class="recommendations-grid" data-recommendations>
+            <article>
+              <h3>Sem análise carregada</h3>
+              <p>As recomendações serão geradas com base na situação cadastral, idade da empresa, porte, CNAE, capital social, cidade/UF e QSA.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="references-panel app-view" id="referencias" data-view="referencias">
+          <div class="panel-header">
+            <h2>Referências comerciais</h2>
+            <span class="status-chip">Manual</span>
+          </div>
+          <form class="references-form" data-reference-form>
+            <label>
+              Empresa
+              <input type="text" placeholder="Fornecedor ou cliente de referência" data-reference-company>
+            </label>
+            <label>
+              Contato
+              <input type="text" placeholder="Nome do contato" data-reference-contact>
+            </label>
+            <label>
+              Telefone
+              <input type="text" placeholder="(00) 00000-0000" data-reference-phone>
+            </label>
+            <label>
+              Limite informado
+              <input type="text" placeholder="Ex.: R$ 5.000,00" data-reference-limit>
+            </label>
+            <label class="wide-field">
+              Observação
+              <input type="text" placeholder="Prazo, pontualidade, comportamento de pagamento" data-reference-note>
+            </label>
+            <button type="submit">Adicionar referência</button>
+          </form>
+          <div class="references-list" data-references>
+            <div class="empty-row">Consulte um CNPJ para adicionar referências comerciais à ficha.</div>
+          </div>
+        </section>
+
+        <section class="summary-panel app-view" data-view="resultado">
+          <div class="panel-header">
+            <h2>Resumo da pesquisa</h2>
+            <div class="panel-actions">
+              <button type="button" class="secondary-button icon-button" data-copy-summary disabled><span>Copiar</span></button>
+              <a class="secondary-button link-button icon-button is-disabled" href="#" target="_blank" rel="noopener" data-whatsapp><span>WhatsApp</span></a>
+            </div>
+          </div>
+          <textarea data-summary readonly placeholder="O resumo da consulta aparecera aqui."></textarea>
+        </section>
+
+        <section class="summary-preview-panel app-view" id="resumo" data-view="resumo">
+          <div class="panel-header">
+            <h2>Resumo para documentação</h2>
+            <div class="panel-actions">
+              <button type="button" class="secondary-button icon-button" data-save-consultation disabled><span>Salvar</span></button>
+              <button type="button" class="secondary-button icon-button" data-summary-print disabled><span>Imprimir</span></button>
+              <a class="secondary-button link-button icon-button is-disabled" href="#" target="_blank" rel="noopener" data-summary-whatsapp><span>WhatsApp</span></a>
+            </div>
+          </div>
+          <div class="summary-preview" data-summary-preview>
+            <div class="empty-state">
+              <strong>Nenhum resumo carregado</strong>
+              <span>Consulte um CNPJ ou execute uma análise de crédito para visualizar a ficha em formato de impressão.</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="admin-panel app-view" id="admin" data-view="admin">
+          <div class="panel-header">
+            <h2>Painel admin</h2>
+            <button type="button" class="secondary-button" data-admin-load>Atualizar</button>
+          </div>
+          <form class="admin-form" data-admin-form>
+            <label>
+              Nome
+              <input type="text" placeholder="Nome do usuário" data-admin-user-name>
+            </label>
+            <label>
+              E-mail/login
+              <input type="email" placeholder="usuario@empresa.com" data-admin-user-email>
+            </label>
+            <label>
+              Perfil
+              <select data-admin-user-role>
+                <option>Admin</option>
+                <option>Analista</option>
+                <option>Comercial</option>
+                <option>Auditoria</option>
+              </select>
+            </label>
+            <label>
+              Status
+              <select data-admin-user-status>
+                <option>Ativo</option>
+                <option>Bloqueado</option>
+              </select>
+            </label>
+            <button type="submit">Cadastrar usuário</button>
+          </form>
+          <form class="admin-form storage-form" data-storage-form>
+            <label class="wide-field">
+              Pasta padrão de consultas
+              <input type="text" placeholder="Ex.: C:\Consultas Scriptt" data-storage-path>
+            </label>
+            <label>
+              Armazenamento
+              <select data-storage-mode>
+                <option value="local_db">Banco local</option>
+                <option value="folder">Pasta local</option>
+                <option value="cloud">Nuvem</option>
+              </select>
+            </label>
+            <label>
+              Nuvem
+              <select data-storage-cloud>
+                <option value="none">Não usar</option>
+                <option value="onedrive">OneDrive</option>
+                <option value="google_drive">Google Drive</option>
+                <option value="sharepoint">SharePoint</option>
+                <option value="s3">S3 compatível</option>
+              </select>
+            </label>
+            <button type="submit">Salvar configuração</button>
+          </form>
+          <div class="admin-grid" data-admin-panel>
+            <article>
+              <h3>Matriz de acessos</h3>
+              <p>Admin, Analista, Comercial e Auditoria com permissões separadas para consulta, carteira, configuração e trilha LGPD.</p>
+            </article>
+            <article>
+              <h3>Configurações</h3>
+              <p>CPF exige motivo, decisão automática desligada, limite de carteira e modo Serasa mock/sandbox controlados no backend.</p>
+            </article>
+          </div>
+        </section>
+      </section>
+
+      <aside class="side-panel" aria-label="Historico">
+        <div class="side-brand">
+          <img src="/assets/logo-scriptt.png" alt="Scriptt">
+          <span>Desenvolvido por Scriptt</span>
+        </div>
+        <div class="side-heading">
+          <h2>Historico</h2>
+          <button type="button" class="secondary-button" data-clear-history>Limpar</button>
+        </div>
+        <div class="history-tabs" role="tablist" aria-label="Tipo de histórico">
+          <button type="button" class="history-tab is-active" data-history-kind="cnpj">CNPJ</button>
+          <button type="button" class="history-tab" data-history-kind="cpf">CPF</button>
+        </div>
+        <ol data-history></ol>
+      </aside>
+    </main>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>
