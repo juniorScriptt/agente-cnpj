@@ -4,9 +4,58 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agente CNPJ | Scriptt</title>
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/styles.css?v=20260507m">
   </head>
   <body>
+    <div class="login-overlay" data-login-overlay>
+      <div class="login-card">
+        <img src="/assets/logo-scriptt.png" alt="Scriptt" class="login-logo">
+        <span class="eyebrow">Scriptt Credit Desk</span>
+        <h1>Acesso ao sistema</h1>
+        <p>Entre com seu usuário para consultar, analisar crédito e usar integrações premium com rastreabilidade.</p>
+        <form class="login-form" data-login-form>
+          <label>
+            Login
+            <input type="text" placeholder="usuario@empresa.com" data-login-user>
+          </label>
+          <label>
+            Senha
+            <input type="password" placeholder="Sua senha" data-login-password>
+          </label>
+          <label class="checkbox-field">
+            <input type="checkbox" data-login-remember>
+            Lembrar usuário neste computador
+          </label>
+          <button type="submit">Entrar</button>
+        </form>
+        <div class="login-status" data-login-status>
+          <strong>Acesso inicial</strong>
+          <span>Use o usuário administrador padrão para o primeiro login e depois troque a senha no painel admin.</span>
+        </div>
+      </div>
+    </div>
+    <div class="login-overlay" data-change-password-overlay>
+      <div class="login-card">
+        <span class="eyebrow">Primeiro acesso</span>
+        <h1>Trocar senha</h1>
+        <p>Para continuar, defina uma nova senha e confirme a digitação. Isso protege o acesso administrativo inicial.</p>
+        <form class="login-form" data-change-password-form>
+          <label>
+            Nova senha
+            <input type="password" placeholder="Digite a nova senha" data-change-password-new>
+          </label>
+          <label>
+            Confirmar senha
+            <input type="password" placeholder="Repita a nova senha" data-change-password-confirm>
+          </label>
+          <button type="submit">Salvar nova senha</button>
+        </form>
+        <div class="login-status" data-change-password-status>
+          <strong>Senha obrigatória</strong>
+          <span>As duas senhas devem coincidir para liberar o uso do sistema.</span>
+        </div>
+      </div>
+    </div>
     <main class="app-shell">
       <section class="workspace" aria-label="Consulta de CNPJ">
         <header class="topbar">
@@ -20,20 +69,29 @@
           </div>
           <div class="top-actions">
             <span class="status-chip">BrasilAPI + Minha Receita</span>
+            <span class="source-pill" data-auth-user-chip>Sem sessão</span>
+            <button type="button" class="secondary-button" data-auth-logout>Sair</button>
             <button type="button" class="secondary-button" data-new>Nova consulta</button>
           </div>
         </header>
 
         <nav class="flow-nav" aria-label="Fluxos principais">
           <button type="button" class="tab-button is-active" data-tab="dashboard">Dashboard</button>
-          <button type="button" class="tab-button" data-tab="consulta">Consulta CNPJ</button>
+          <button type="button" class="tab-button" data-tab="consulta">Consulta CPF/CNPJ</button>
           <button type="button" class="tab-button" data-tab="clientes">Clientes GEST</button>
+          <button type="button" class="tab-button" data-tab="analise-credito">Análise de crédito</button>
           <button type="button" class="tab-button" data-tab="resultado">Resultado</button>
           <button type="button" class="tab-button" data-tab="resumo">Resumo</button>
           <button type="button" class="tab-button" data-tab="credito-serasa">Crédito Serasa</button>
+          <button type="button" class="tab-button" data-tab="serasa-premium">Serasa Premium</button>
           <button type="button" class="tab-button" data-tab="referencias">Referências</button>
           <button type="button" class="tab-button" data-tab="admin">Admin</button>
         </nav>
+
+        <div class="global-feedback" data-global-feedback hidden>
+          <strong data-global-feedback-title>Atualização</strong>
+          <span data-global-feedback-message>Pronto.</span>
+        </div>
 
         <section class="dashboard-panel app-view is-active" data-view="dashboard">
           <div class="panel-header">
@@ -57,32 +115,57 @@
               <p>Consulte um CNPJ/CPF para gerar o resumo individual.</p>
             </article>
           </div>
-          <div class="dashboard-actions">
-            <button type="button" data-tab-target="consulta">Nova consulta CNPJ</button>
-            <button type="button" class="secondary-button" data-tab-target="credito-serasa">Análise de crédito</button>
-            <button type="button" class="secondary-button" data-tab-target="clientes">Validar carteira GEST</button>
-            <button type="button" class="secondary-button" data-clear-current>Limpar tela atual</button>
-          </div>
+          <div class="dashboard-strip" data-dashboard-strip></div>
+          <div class="dashboard-recent" data-dashboard-recent></div>
         </section>
 
         <section class="search-panel app-view" id="consulta" data-view="consulta">
-          <form data-form>
-            <label for="cnpj">CNPJ</label>
-            <div class="search-row">
-              <input
-                id="cnpj"
-                name="cnpj"
-                type="text"
-                inputmode="numeric"
-                autocomplete="off"
-                placeholder="00.000.000/0000-00"
-                maxlength="18"
-                data-cnpj
-              >
-              <button type="submit" data-submit>Consultar</button>
-            </div>
-            <p class="status-line" data-status data-type="idle">Pronto para consultar.</p>
-          </form>
+          <div class="document-flow">
+            <form data-form>
+              <label for="cnpj">CNPJ</label>
+              <div class="search-row">
+                <input
+                  id="cnpj"
+                  name="cnpj"
+                  type="text"
+                  inputmode="numeric"
+                  autocomplete="off"
+                  placeholder="00.000.000/0000-00"
+                  maxlength="18"
+                  data-cnpj
+                >
+                <button type="submit" data-submit>Consultar</button>
+              </div>
+              <p class="status-line" data-status data-type="idle">Pronto para consultar.</p>
+            </form>
+
+            <form class="cpf-search-card" data-cpf-form>
+              <div>
+                <label for="cpf-document">CPF</label>
+                <input
+                  id="cpf-document"
+                  type="text"
+                  inputmode="numeric"
+                  autocomplete="off"
+                  placeholder="000.000.000-00"
+                  maxlength="14"
+                  data-cpf-document
+                >
+              </div>
+              <div>
+                <label for="cpf-name">Nome do titular</label>
+                <input
+                  id="cpf-name"
+                  type="text"
+                  autocomplete="off"
+                  placeholder="Informe o nome quando não houver API cadastral"
+                  data-cpf-name
+                >
+              </div>
+              <button type="submit">Analisar CPF</button>
+              <p class="status-line" data-cpf-status data-type="idle">CPF usa crédito Serasa/sandbox e preenche Resultado e Resumo.</p>
+            </form>
+          </div>
 
           <div class="local-search">
             <label for="history-search">Busca no historico</label>
@@ -90,7 +173,7 @@
               id="history-search"
               type="search"
               autocomplete="off"
-              placeholder="Razao social, fantasia, cidade ou CNPJ"
+              placeholder="Razao social, nome, cidade, CPF ou CNPJ"
               data-history-search
             >
           </div>
@@ -104,7 +187,7 @@
           </div>
           <div>
             <h2 data-traffic-title>Pronto para consultar</h2>
-            <p data-traffic-message>Informe um CNPJ ou selecione um cliente do GEST para iniciar a análise.</p>
+            <p data-traffic-message>Informe um CNPJ, CPF ou selecione um cliente do GEST para iniciar a análise.</p>
           </div>
         </section>
 
@@ -133,6 +216,10 @@
               CNPJ
               <input type="search" inputmode="numeric" placeholder="00.000.000/0000-00" data-gest-cnpj>
             </label>
+            <label>
+              CPF
+              <input type="search" inputmode="numeric" placeholder="000.000.000-00" data-gest-cpf>
+            </label>
             <label class="checkbox-field">
               <input type="checkbox" data-gest-outside-manaus>
               Apenas fora de Manaus
@@ -143,29 +230,12 @@
           <div class="clients-table" data-clients></div>
         </section>
 
-        <section class="credit-panel app-view" id="credito" data-view="dashboard">
+        <section class="credit-panel app-view" id="credito" data-view="analise-credito">
           <div class="panel-header">
             <h2>Análise de crédito</h2>
-            <span class="status-chip">Preparado</span>
+            <span class="status-chip" data-credit-workbench-status>Preparado</span>
           </div>
-          <div class="credit-grid">
-            <article>
-              <h3>Fontes públicas gratuitas</h3>
-              <p>CNPJ ativo, idade da empresa, CNAE, capital social, QSA, endereço, contatos e consistência com o cadastro GEST.</p>
-            </article>
-            <article>
-              <h3>Historico interno</h3>
-              <p>Vendas, recebimentos, atrasos, limite atual, bloqueios e recorrencia do cliente no GEST.</p>
-            </article>
-            <article>
-              <h3>APIs pagas que somam</h3>
-              <p>Sintegra API para IE, Serasa, Boa Vista/SCPC, Quod, protestos, processos e score de mercado.</p>
-            </article>
-            <article>
-              <h3>Decisão assistida</h3>
-              <p>O app sugere sinais, cuidados e limites. A aprovação final continua sendo do usuário.</p>
-            </article>
-          </div>
+          <div class="credit-workbench" data-credit-workbench></div>
         </section>
 
         <section class="result-panel app-view" id="resultado" aria-live="polite" data-view="resultado">
@@ -187,24 +257,37 @@
           </div>
           <div class="serasa-layout">
             <form class="serasa-form" data-serasa-form>
+              <div class="form-intro wide-field">
+                <strong>Use esta etapa para somar score, risco e limite ao documento já carregado.</strong>
+                <span>O essencial fica aqui. Dados de auditoria aparecem só quando precisarmos revisar a trilha da consulta.</span>
+              </div>
               <label>
                 Documento
                 <input type="text" placeholder="CNPJ ou CPF" data-serasa-document>
               </label>
               <label>
-                Usuário
-                <input type="text" value="admin@scriptt" data-serasa-user>
-              </label>
-              <label class="wide-field">
-                Motivo da consulta
-                <input type="text" value="Análise de crédito para venda a prazo" data-serasa-reason>
-              </label>
-              <label>
-                Base legal/finalidade
-                <input type="text" value="Proteção ao crédito" data-serasa-legal>
+                Nome informado
+                <input type="text" placeholder="Obrigatório para CPF em modo sandbox" data-serasa-subject-name>
               </label>
               <button type="submit">Executar análise</button>
               <button type="button" class="secondary-button" data-serasa-print disabled>Imprimir resumo A4</button>
+              <details class="form-advanced wide-field">
+                <summary>Auditoria da consulta</summary>
+                <div class="advanced-grid">
+                  <label>
+                    Usuário
+                    <input type="text" value="admin@scriptt" data-serasa-user>
+                  </label>
+                  <label class="wide-field">
+                    Motivo da consulta
+                    <input type="text" value="Análise de crédito para venda a prazo" data-serasa-reason>
+                  </label>
+                  <label>
+                    Base legal/finalidade
+                    <input type="text" value="Proteção ao crédito" data-serasa-legal>
+                  </label>
+                </div>
+              </details>
             </form>
             <div class="serasa-board" data-serasa-board>
               <article>
@@ -257,7 +340,79 @@
           </div>
         </section>
 
-        <section class="recommendations-panel app-view" data-view="resultado">
+        <section class="serasa-panel app-view" id="serasa-premium" data-view="serasa-premium">
+          <div class="panel-header">
+            <h2>Serasa Premium e SCC Check</h2>
+            <span class="status-chip" data-serasa-premium-status>Protegido</span>
+          </div>
+          <div class="serasa-layout">
+            <form class="serasa-form" data-serasa-premium-form>
+              <div class="form-intro wide-field">
+                <strong>Esta é a área de consumo controlado do serviço pago.</strong>
+                <span>Preencha documento, nome quando necessário e a senha de validação. O restante fica em auditoria avançada.</span>
+              </div>
+              <label>
+                Documento
+                <input type="text" placeholder="CNPJ ou CPF" data-serasa-premium-document>
+              </label>
+              <label>
+                Serviço pago
+                <select data-serasa-premium-product>
+                  <option value="SCC_CHECK">SCC Check</option>
+                  <option value="CONCENTRE_PF">Concentre PF</option>
+                  <option value="RELATO_PJ">Relato PJ</option>
+                </select>
+              </label>
+              <label class="wide-field">
+                Nome informado
+                <input type="text" placeholder="Obrigatório para CPF quando o produto não retornar nome" data-serasa-premium-subject-name>
+              </label>
+              <label class="wide-field">
+                Motivo da consulta
+                <input type="text" value="Análise de crédito premium com serviço pago Serasa" data-serasa-premium-reason>
+              </label>
+              <label>
+                Base legal/finalidade
+                <input type="text" value="Proteção ao crédito" data-serasa-premium-legal>
+              </label>
+              <label>
+                Senha de validação
+                <input type="password" placeholder="Obrigatória para usar serviços pagos" data-serasa-premium-password>
+              </label>
+              <button type="submit">Executar serviço pago</button>
+              <button type="button" class="secondary-button" data-serasa-premium-print disabled>Imprimir premium A4</button>
+              <div class="premium-ready-box wide-field" data-serasa-premium-ready>
+                <strong>Pronto para validar</strong>
+                <span>Carregando regras do backend local.</span>
+              </div>
+              <details class="form-advanced wide-field">
+                <summary>Auditoria e rastreabilidade</summary>
+                <div class="advanced-grid">
+                  <label>
+                    Usuário responsável
+                    <input type="text" value="admin@scriptt" data-serasa-premium-user>
+                  </label>
+                  <label class="wide-field">
+                    Motivo da consulta
+                    <input type="text" value="Análise de crédito premium com serviço pago Serasa" data-serasa-premium-reason>
+                  </label>
+                  <label>
+                    Base legal/finalidade
+                    <input type="text" value="Proteção ao crédito" data-serasa-premium-legal>
+                  </label>
+                </div>
+              </details>
+            </form>
+            <div class="serasa-board" data-serasa-premium-board>
+              <article>
+                <h3>Área dedicada para serviços pagos</h3>
+                <p>Use esta seção para SCC Check e outros produtos pagos da Serasa, com validação por senha e trilha LGPD separada.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="recommendations-panel app-view" data-view="analise-credito">
           <div class="panel-header">
             <h2>Recomendações</h2>
             <span class="status-chip" data-recommendation-score>Aguardando consulta</span>
@@ -303,15 +458,15 @@
           </div>
         </section>
 
-        <section class="summary-panel app-view" data-view="resultado">
+        <section class="summary-panel app-view" data-view="analise-credito">
           <div class="panel-header">
-            <h2>Resumo da pesquisa</h2>
+            <h2>Resumo para copiar</h2>
             <div class="panel-actions">
               <button type="button" class="secondary-button icon-button" data-copy-summary disabled><span>Copiar</span></button>
               <a class="secondary-button link-button icon-button is-disabled" href="#" target="_blank" rel="noopener" data-whatsapp><span>WhatsApp</span></a>
             </div>
           </div>
-          <textarea data-summary readonly placeholder="O resumo da consulta aparecera aqui."></textarea>
+          <textarea data-summary readonly placeholder="O texto curto para copiar e compartilhar aparecerá aqui."></textarea>
         </section>
 
         <section class="summary-preview-panel app-view" id="resumo" data-view="resumo">
@@ -326,7 +481,7 @@
           <div class="summary-preview" data-summary-preview>
             <div class="empty-state">
               <strong>Nenhum resumo carregado</strong>
-              <span>Consulte um CNPJ ou execute uma análise de crédito para visualizar a ficha em formato de impressão.</span>
+              <span>Consulte um CNPJ ou execute uma análise de crédito para visualizar a ficha pronta para impressão.</span>
             </div>
           </div>
         </section>
@@ -335,6 +490,10 @@
           <div class="panel-header">
             <h2>Painel admin</h2>
             <button type="button" class="secondary-button" data-admin-load>Atualizar</button>
+          </div>
+          <div class="admin-hero">
+            <strong>Vamos simplificar a configuração.</strong>
+            <span>Cadastre usuários primeiro. Depois use o Assistente Serasa. Os campos técnicos completos ficam recolhidos em configuração avançada.</span>
           </div>
           <form class="admin-form" data-admin-form>
             <label>
@@ -361,33 +520,148 @@
                 <option>Bloqueado</option>
               </select>
             </label>
+            <label>
+              Senha do usuário
+              <input type="password" placeholder="Obrigatória no primeiro cadastro" data-admin-user-password>
+            </label>
+            <label>
+              Confirmar senha
+              <input type="password" placeholder="Repita a senha do usuário" data-admin-user-password-confirm>
+            </label>
+            <fieldset class="permissions-fieldset wide-field">
+              <legend>Permissões do usuário</legend>
+              <label><input type="checkbox" value="consultar_cnpj" data-admin-permission> Consultar CNPJ</label>
+              <label><input type="checkbox" value="consultar_cpf" data-admin-permission> Consultar CPF</label>
+              <label><input type="checkbox" value="analisar_carteira" data-admin-permission> Analisar carteira</label>
+              <label><input type="checkbox" value="usar_serasa_premium" data-admin-permission> Usar Serasa Premium</label>
+              <label><input type="checkbox" value="usar_scc_check" data-admin-permission> Usar SCC Check</label>
+              <label><input type="checkbox" value="gerenciar_credenciais_serasa" data-admin-permission> Gerenciar credenciais Serasa</label>
+              <label><input type="checkbox" value="ver_auditoria" data-admin-permission> Ver auditoria</label>
+            </fieldset>
             <button type="submit">Cadastrar usuário</button>
+            <div class="form-feedback wide-field" data-admin-user-feedback hidden>
+              <strong data-admin-user-feedback-title>Cadastro</strong>
+              <span data-admin-user-feedback-message>Preencha os dados para cadastrar um usuário.</span>
+            </div>
           </form>
-          <form class="admin-form storage-form" data-storage-form>
-            <label class="wide-field">
-              Pasta padrão de consultas
-              <input type="text" placeholder="Ex.: C:\Consultas Scriptt" data-storage-path>
-            </label>
-            <label>
-              Armazenamento
-              <select data-storage-mode>
-                <option value="local_db">Banco local</option>
-                <option value="folder">Pasta local</option>
-                <option value="cloud">Nuvem</option>
-              </select>
-            </label>
-            <label>
-              Nuvem
-              <select data-storage-cloud>
-                <option value="none">Não usar</option>
-                <option value="onedrive">OneDrive</option>
-                <option value="google_drive">Google Drive</option>
-                <option value="sharepoint">SharePoint</option>
-                <option value="s3">S3 compatível</option>
-              </select>
-            </label>
-            <button type="submit">Salvar configuração</button>
-          </form>
+          <div class="admin-assistant" data-serasa-wizard></div>
+          <details class="admin-advanced">
+            <summary>Configuração avançada do sistema</summary>
+            <div class="admin-advanced-body">
+              <form class="admin-form storage-form" data-storage-form>
+                <label class="wide-field">
+                  Pasta padrão de consultas
+                  <input type="text" placeholder="Ex.: C:\Consultas Scriptt" data-storage-path>
+                </label>
+                <label>
+                  Armazenamento
+                  <select data-storage-mode>
+                    <option value="local_db">Banco local</option>
+                    <option value="folder">Pasta local</option>
+                    <option value="cloud">Nuvem</option>
+                  </select>
+                </label>
+                <label>
+                  Nuvem
+                  <select data-storage-cloud>
+                    <option value="none">Não usar</option>
+                    <option value="onedrive">OneDrive</option>
+                    <option value="google_drive">Google Drive</option>
+                    <option value="sharepoint">SharePoint</option>
+                    <option value="s3">S3 compatível</option>
+                  </select>
+                </label>
+                <button type="submit">Salvar armazenamento</button>
+              </form>
+              <form class="admin-form storage-form" data-bureau-form>
+                <label>
+                  Bureau ativo
+                  <select data-bureau-provider>
+                    <option value="mock">Mock</option>
+                    <option value="serasa">Serasa</option>
+                    <option value="boavista">Boa Vista</option>
+                    <option value="quod">Quod</option>
+                  </select>
+                </label>
+                <label>
+                  Ambiente
+                  <select data-bureau-environment>
+                    <option value="sandbox">Sandbox</option>
+                    <option value="production">Produção</option>
+                  </select>
+                </label>
+                <label class="wide-field">
+                  Base URL
+                  <input type="text" placeholder="https://api.exemplo.com.br" data-bureau-base-url>
+                </label>
+                <label data-auth-scope="oauth">
+                  Client ID
+                  <input type="text" placeholder="client-id" data-bureau-client-id>
+                </label>
+                <label data-auth-scope="oauth">
+                  Client Secret
+                  <input type="password" placeholder="Deixe em branco para manter o atual" data-bureau-client-secret>
+                </label>
+                <label>
+                  Autenticação
+                  <select data-bureau-auth-mode>
+                    <option value="oauth">OAuth / client credentials</option>
+                    <option value="logon">Logon + senha</option>
+                    <option value="bearer_sso">Bearer + Ssotoken</option>
+                  </select>
+                </label>
+                <label data-auth-scope="logon">
+                  Usuário/logon
+                  <input type="text" placeholder="login Serasa" data-bureau-username>
+                </label>
+                <label data-auth-scope="logon">
+                  Senha/logon
+                  <input type="password" placeholder="Deixe em branco para manter a atual" data-bureau-password>
+                </label>
+                <label data-auth-scope="bearer_sso">
+                  Token da API
+                  <input type="password" placeholder="Bearer token da API" data-bureau-api-token>
+                </label>
+                <label data-auth-scope="bearer_sso">
+                  Token SSO
+                  <input type="password" placeholder="Token da sessão SSO" data-bureau-sso-token>
+                </label>
+                <label class="wide-field">
+                  Caminho de consulta
+                  <input type="text" placeholder="/consulta/scc-check" data-bureau-consult-path>
+                </label>
+                <label class="wide-field">
+                  URL do portal SSO
+                  <input type="text" placeholder="https://sso.gruporaizato.com.br/login" data-bureau-portal-url>
+                </label>
+                <label class="wide-field">
+                  Origin da API
+                  <input type="text" placeholder="https://sistema.scccheck.com.br" data-bureau-origin>
+                </label>
+                <label data-auth-scope="oauth">
+                  Caminho do token
+                  <input type="text" placeholder="/oauth/token" data-bureau-token-path>
+                </label>
+                <label>
+                  Produto padrão
+                  <input type="text" placeholder="SCC_CHECK" data-bureau-product-code>
+                </label>
+                <label>
+                  Senha de validação premium
+                  <input type="password" placeholder="Obrigatória para puxar serviço pago" data-bureau-validation-password>
+                </label>
+                <label class="checkbox-field">
+                  <input type="checkbox" data-bureau-feature-premium>
+                  Habilitar área Serasa Premium
+                </label>
+                <label class="checkbox-field">
+                  <input type="checkbox" data-bureau-feature-scc>
+                  Habilitar SCC Check
+                </label>
+                <button type="submit">Salvar bureau</button>
+              </form>
+            </div>
+          </details>
           <div class="admin-grid" data-admin-panel>
             <article>
               <h3>Matriz de acessos</h3>
@@ -418,6 +692,6 @@
       </aside>
     </main>
 
-    <script src="/app.js" defer></script>
+    <script src="/app.js?v=20260507m" defer></script>
   </body>
 </html>

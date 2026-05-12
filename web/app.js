@@ -1,5 +1,25 @@
 const form = document.querySelector("[data-form]");
 const input = document.querySelector("[data-cnpj]");
+const loginOverlay = document.querySelector("[data-login-overlay]");
+const loginForm = document.querySelector("[data-login-form]");
+const loginUser = document.querySelector("[data-login-user]");
+const loginPassword = document.querySelector("[data-login-password]");
+const loginRemember = document.querySelector("[data-login-remember]");
+const loginStatus = document.querySelector("[data-login-status]");
+const changePasswordOverlay = document.querySelector("[data-change-password-overlay]");
+const changePasswordForm = document.querySelector("[data-change-password-form]");
+const changePasswordNew = document.querySelector("[data-change-password-new]");
+const changePasswordConfirm = document.querySelector("[data-change-password-confirm]");
+const changePasswordStatus = document.querySelector("[data-change-password-status]");
+const authUserChip = document.querySelector("[data-auth-user-chip]");
+const authLogoutButton = document.querySelector("[data-auth-logout]");
+const globalFeedback = document.querySelector("[data-global-feedback]");
+const globalFeedbackTitle = document.querySelector("[data-global-feedback-title]");
+const globalFeedbackMessage = document.querySelector("[data-global-feedback-message]");
+const cpfForm = document.querySelector("[data-cpf-form]");
+const cpfDocument = document.querySelector("[data-cpf-document]");
+const cpfName = document.querySelector("[data-cpf-name]");
+const cpfStatus = document.querySelector("[data-cpf-status]");
 const button = document.querySelector("[data-submit]");
 const statusBox = document.querySelector("[data-status]");
 const resultBox = document.querySelector("[data-result]");
@@ -17,6 +37,7 @@ const loadClientsButton = document.querySelector("[data-load-clients]");
 const gestSearch = document.querySelector("[data-gest-search]");
 const gestCode = document.querySelector("[data-gest-code]");
 const gestCnpj = document.querySelector("[data-gest-cnpj]");
+const gestCpf = document.querySelector("[data-gest-cpf]");
 const gestStart = document.querySelector("[data-gest-start]");
 const gestEnd = document.querySelector("[data-gest-end]");
 const gestOutsideManaus = document.querySelector("[data-gest-outside-manaus]");
@@ -39,14 +60,32 @@ const tabButtons = document.querySelectorAll("[data-tab]");
 const tabTargets = document.querySelectorAll("[data-tab-target]");
 const appViews = document.querySelectorAll("[data-view]");
 const dashboardBox = document.querySelector("[data-dashboard]");
+const dashboardStrip = document.querySelector("[data-dashboard-strip]");
+const dashboardRecent = document.querySelector("[data-dashboard-recent]");
+const creditWorkbench = document.querySelector("[data-credit-workbench]");
+const creditWorkbenchStatus = document.querySelector("[data-credit-workbench-status]");
 const serasaForm = document.querySelector("[data-serasa-form]");
 const serasaDocument = document.querySelector("[data-serasa-document]");
+const serasaSubjectName = document.querySelector("[data-serasa-subject-name]");
 const serasaUser = document.querySelector("[data-serasa-user]");
 const serasaReason = document.querySelector("[data-serasa-reason]");
 const serasaLegal = document.querySelector("[data-serasa-legal]");
 const serasaStatus = document.querySelector("[data-serasa-status]");
 const serasaBoard = document.querySelector("[data-serasa-board]");
 const serasaPrint = document.querySelector("[data-serasa-print]");
+const serasaPremiumForm = document.querySelector("[data-serasa-premium-form]");
+const serasaPremiumDocument = document.querySelector("[data-serasa-premium-document]");
+const serasaPremiumUser = document.querySelector("[data-serasa-premium-user]");
+const serasaPremiumProduct = document.querySelector("[data-serasa-premium-product]");
+const serasaPremiumSubjectName = document.querySelector("[data-serasa-premium-subject-name]");
+const serasaPremiumReason = document.querySelector("[data-serasa-premium-reason]");
+const serasaPremiumLegal = document.querySelector("[data-serasa-premium-legal]");
+const serasaPremiumPassword = document.querySelector("[data-serasa-premium-password]");
+const serasaPremiumStatus = document.querySelector("[data-serasa-premium-status]");
+const serasaPremiumBoard = document.querySelector("[data-serasa-premium-board]");
+const serasaPremiumPrint = document.querySelector("[data-serasa-premium-print]");
+const serasaPremiumReady = document.querySelector("[data-serasa-premium-ready]");
+const serasaPremiumSubmit = serasaPremiumForm?.querySelector('button[type="submit"]');
 const portfolioDocuments = document.querySelector("[data-portfolio-documents]");
 const portfolioRun = document.querySelector("[data-portfolio-run]");
 const portfolioResult = document.querySelector("[data-portfolio-result]");
@@ -62,6 +101,34 @@ const adminUserName = document.querySelector("[data-admin-user-name]");
 const adminUserEmail = document.querySelector("[data-admin-user-email]");
 const adminUserRole = document.querySelector("[data-admin-user-role]");
 const adminUserStatus = document.querySelector("[data-admin-user-status]");
+const adminUserPassword = document.querySelector("[data-admin-user-password]");
+const adminUserPasswordConfirm = document.querySelector("[data-admin-user-password-confirm]");
+const adminPermissionInputs = document.querySelectorAll("[data-admin-permission]");
+const adminUserFeedback = document.querySelector("[data-admin-user-feedback]");
+const adminUserFeedbackTitle = document.querySelector("[data-admin-user-feedback-title]");
+const adminUserFeedbackMessage = document.querySelector("[data-admin-user-feedback-message]");
+const bureauForm = document.querySelector("[data-bureau-form]");
+const bureauProvider = document.querySelector("[data-bureau-provider]");
+const bureauEnvironment = document.querySelector("[data-bureau-environment]");
+const bureauBaseUrl = document.querySelector("[data-bureau-base-url]");
+const bureauClientId = document.querySelector("[data-bureau-client-id]");
+const bureauClientSecret = document.querySelector("[data-bureau-client-secret]");
+const bureauAuthMode = document.querySelector("[data-bureau-auth-mode]");
+const bureauUsername = document.querySelector("[data-bureau-username]");
+const bureauPassword = document.querySelector("[data-bureau-password]");
+const bureauApiToken = document.querySelector("[data-bureau-api-token]");
+const bureauSsoToken = document.querySelector("[data-bureau-sso-token]");
+const bureauConsultPath = document.querySelector("[data-bureau-consult-path]");
+const bureauPortalUrl = document.querySelector("[data-bureau-portal-url]");
+const bureauOrigin = document.querySelector("[data-bureau-origin]");
+const bureauTokenPath = document.querySelector("[data-bureau-token-path]");
+const bureauProductCode = document.querySelector("[data-bureau-product-code]");
+const bureauValidationPassword = document.querySelector("[data-bureau-validation-password]");
+const bureauFeaturePremium = document.querySelector("[data-bureau-feature-premium]");
+const bureauFeatureScc = document.querySelector("[data-bureau-feature-scc]");
+const serasaWizard = document.querySelector("[data-serasa-wizard]");
+const adminAdvanced = document.querySelector(".admin-advanced");
+const bureauScopedFields = document.querySelectorAll("[data-auth-scope]");
 const clearCurrentButton = document.querySelector("[data-clear-current]");
 const historyTabs = document.querySelectorAll("[data-history-kind]");
 const summaryPreviewBox = document.querySelector("[data-summary-preview]");
@@ -80,6 +147,7 @@ const CLIENT_OK_KEY = "agenteCnpj.clientOk.v1";
 const REFERENCES_KEY = "agenteCnpj.references.v1";
 const ADMIN_USERS_KEY = "agenteCnpj.adminUsers.v1";
 const ADMIN_SETTINGS_KEY = "agenteCnpj.adminSettings.v1";
+const REMEMBER_LOGIN_KEY = "agenteCnpj.rememberedLogin.v1";
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 const MAX_HISTORY = 30;
 
@@ -92,14 +160,523 @@ let adminUsers = loadAdminUsers();
 let adminSettings = loadAdminSettings();
 let lastPayload = null;
 let lastCreditAnalysis = null;
+let lastSerasaPremiumAnalysis = null;
 let lastInternalHistory = null;
+let lastCreditSubjectName = "";
 let lastGestClients = [];
 let gestSort = { key: "nome", direction: "asc" };
 let historyKind = "cnpj";
+let bureauSettings = {};
+let currentUser = null;
+
+const ROLE_PERMISSIONS = {
+  Admin: [
+    "consultar_cnpj",
+    "consultar_cpf",
+    "analisar_carteira",
+    "usar_serasa_premium",
+    "usar_scc_check",
+    "gerenciar_credenciais_serasa",
+    "ver_auditoria",
+  ],
+  Analista: [
+    "consultar_cnpj",
+    "consultar_cpf",
+    "analisar_carteira",
+    "usar_serasa_premium",
+    "usar_scc_check",
+  ],
+  Comercial: [
+    "consultar_cnpj",
+    "consultar_cpf",
+  ],
+  Auditoria: [
+    "ver_auditoria",
+  ],
+};
+
+function setCpfStatus(message, type = "idle") {
+  if (!cpfStatus) return;
+  cpfStatus.textContent = message;
+  cpfStatus.dataset.type = type;
+}
+
+function defaultPermissionsForRole(role) {
+  return [...(ROLE_PERMISSIONS[role] || ROLE_PERMISSIONS.Analista)];
+}
+
+function setPermissionInputs(role = adminUserRole?.value || "Analista", selected = null) {
+  const active = new Set(selected || defaultPermissionsForRole(role));
+  adminPermissionInputs.forEach((inputElement) => {
+    inputElement.checked = active.has(inputElement.value);
+  });
+}
+
+function selectedPermissions() {
+  return Array.from(adminPermissionInputs)
+    .filter((inputElement) => inputElement.checked)
+    .map((inputElement) => inputElement.value);
+}
+
+function findAdminUser(email) {
+  const normalized = String(email || "").trim().toLowerCase();
+  return adminUsers.find((item) => String(item.email || "").trim().toLowerCase() === normalized) || null;
+}
+
+function userHasPermission(email, permission) {
+  const current = findAdminUser(email) || (currentUser && String(currentUser.email || "").toLowerCase() === String(email || "").toLowerCase() ? currentUser : null);
+  if (!current) {
+    return true;
+  }
+  return (current.permissions || defaultPermissionsForRole(current.role)).includes(permission);
+}
+
+function currentUserHas(permission) {
+  if (!currentUser) {
+    return false;
+  }
+  return (currentUser.permissions || defaultPermissionsForRole(currentUser.role)).includes(permission);
+}
+
+function getSerasaPremiumReadiness() {
+  const security = bureauSettings.security || {};
+  const providerName = bureauSettings.provider || "mock";
+  const providerConfig = bureauSettings.providers?.[providerName] || {};
+  const providerMode = bureauSettings.environment || "sandbox";
+  const authMode = providerConfig.auth_mode || "oauth";
+  const hasValidation = Boolean(security.has_validation_password);
+  const canPremium = currentUserHas("usar_serasa_premium");
+  const canScc = currentUserHas("usar_scc_check");
+  const hasDocument = [11, 14].includes(onlyDigits(serasaPremiumDocument?.value || "").length);
+  const hasPasswordInput = Boolean(serasaPremiumPassword?.value?.trim());
+  const product = serasaPremiumProduct?.value || "SCC_CHECK";
+  const needsSccPermission = product === "SCC_CHECK";
+  const hasBackendRoute = providerName === "serasa"
+    ? Boolean((providerConfig.base_url || "").trim()) && Boolean((providerConfig.consult_path || "").trim())
+    : true;
+  let authConfigured = true;
+  let authSummary = "Mock habilitado para testes locais.";
+  if (providerName === "serasa") {
+    if (authMode === "bearer_sso") {
+      authConfigured = Boolean(providerConfig.has_api_token) && Boolean(providerConfig.has_sso_token);
+      authSummary = authConfigured
+        ? "Token da API e Token SSO salvos."
+        : "Faltam Token da API e/ou Token SSO.";
+    } else if (authMode === "logon") {
+      authConfigured = Boolean((providerConfig.username || "").trim()) && Boolean(providerConfig.has_password);
+      authSummary = authConfigured
+        ? "Usuário/logon e senha salvos."
+        : "Faltam usuário/logon e/ou senha.";
+    } else {
+      authConfigured = Boolean((providerConfig.client_id || "").trim()) && Boolean(providerConfig.has_client_secret);
+      authSummary = authConfigured
+        ? "Client ID e Client Secret salvos."
+        : "Faltam Client ID e/ou Client Secret.";
+    }
+  }
+  const consumesCredits = providerName === "serasa"
+    && providerMode === "production"
+    && hasBackendRoute
+    && authConfigured;
+  const ready = hasValidation
+    && canPremium
+    && hasDocument
+    && hasPasswordInput
+    && (providerMode !== "production" || authConfigured)
+    && (!needsSccPermission || canScc);
+  return {
+    providerName,
+    providerMode,
+    authMode,
+    authConfigured,
+    authSummary,
+    hasValidation,
+    canPremium,
+    canScc,
+    hasDocument,
+    hasPasswordInput,
+    hasBackendRoute,
+    consumesCredits,
+    ready,
+  };
+}
+
+function setSerasaPremiumReadyState() {
+  if (!serasaPremiumReady) return;
+  const state = getSerasaPremiumReadiness();
+  const configProvider = state.providerName.toUpperCase();
+  const modeLabel = state.providerMode === "production" ? "Produção" : "Mock/Sandbox";
+  const pendencias = [];
+  if (!state.hasValidation) pendencias.push("definir a senha premium no Admin");
+  if (!state.canPremium) pendencias.push("liberar acesso premium para este usuário");
+  if (!state.hasDocument) pendencias.push("informar CPF/CNPJ válido");
+  if (!state.hasPasswordInput) pendencias.push("digitar a senha de validação");
+  if ((serasaPremiumProduct?.value || "SCC_CHECK") === "SCC_CHECK" && !state.canScc) pendencias.push("liberar SCC Check para este usuário");
+  if (state.providerName === "serasa" && state.providerMode === "production" && !state.authConfigured) {
+    if (state.authMode === "bearer_sso") pendencias.push("salvar Token da API e Token SSO");
+    else if (state.authMode === "logon") pendencias.push("salvar Usuário/logon e Senha/logon");
+    else pendencias.push("salvar Client ID e Client Secret");
+  }
+  const authModeLabel = state.authMode === "bearer_sso"
+    ? "Bearer + Ssotoken"
+    : state.authMode === "logon"
+      ? "Logon + senha"
+      : "OAuth / client credentials";
+  serasaPremiumReady.dataset.state = state.ready ? "success" : "warning";
+  serasaPremiumReady.innerHTML = `
+    <strong>${state.ready ? "Pronto para validar" : "Validação pendente"}</strong>
+    <span>
+      Bureau: ${escapeHtml(configProvider)} · Modo: ${escapeHtml(modeLabel)} ·
+      Autenticação: ${escapeHtml(authModeLabel)} ·
+      Senha premium: ${state.hasValidation ? "configurada" : "não configurada"} ·
+      Acesso premium: ${state.canPremium ? "ok" : "sem permissão"} ·
+      SCC Check: ${state.canScc ? "ok" : "sem permissão"} ·
+      Backend Serasa: ${state.hasBackendRoute ? "configurado" : "pendente"} ·
+      Credenciais: ${escapeHtml(state.authSummary)} ·
+      ${state.consumesCredits ? "Consulta real pode consumir crédito." : "Consulta atual não consome crédito real."}
+      ${pendencias.length ? ` · Pendências: ${escapeHtml(pendencias.join(", "))}.` : ""}
+    </span>
+  `;
+  if (serasaPremiumSubmit) {
+    serasaPremiumSubmit.disabled = !state.ready;
+  }
+}
+
+function getSerasaAssistantContext() {
+  const provider = bureauSettings.provider || "mock";
+  const environment = bureauSettings.environment || "sandbox";
+  const serasa = bureauSettings.providers?.serasa || {};
+  const features = bureauSettings.features || {};
+  const security = bureauSettings.security || {};
+  const suggestedAuthMode = (serasa.auth_mode || "").trim()
+    || ((serasa.username || "").trim() && !((serasa.client_id || "").trim())
+    ? "logon"
+    : "oauth");
+  const productionPending = [];
+  if (provider !== "serasa") productionPending.push("ativar Serasa como bureau");
+  if (!(serasa.base_url || "").trim()) productionPending.push("informar Base URL");
+  if (!(serasa.consult_path || "").trim()) productionPending.push("informar Caminho de consulta");
+  if (!(serasa.product_code || "").trim()) productionPending.push("informar Produto padrão");
+  if (suggestedAuthMode === "bearer_sso") {
+    if (!serasa.has_api_token) productionPending.push("colar Token da API");
+    if (!serasa.has_sso_token) productionPending.push("colar Token SSO");
+  } else if (suggestedAuthMode === "oauth") {
+    if (!(serasa.client_id || "").trim()) productionPending.push("informar Client ID");
+    if (!serasa.has_client_secret) productionPending.push("informar Client Secret");
+  } else {
+    if (!(serasa.username || "").trim()) productionPending.push("informar Usuário/logon");
+    if (!serasa.has_password) productionPending.push("informar Senha/logon");
+  }
+  if (!security.has_validation_password) productionPending.push("definir senha premium");
+  return {
+    provider,
+    environment,
+    serasa,
+    features,
+    security,
+    suggestedAuthMode,
+    productionPending,
+  };
+}
+
+function renderSerasaWizard() {
+  if (!serasaWizard) return;
+  const ctx = getSerasaAssistantContext();
+  const productionReady = ctx.productionPending.length === 0;
+  const knownData = [
+    `Bureau ativo: ${String(ctx.provider).toUpperCase()}`,
+    `Ambiente: ${ctx.environment === "production" ? "Produção" : "Sandbox"}`,
+    `Autenticação sugerida: ${
+      ctx.suggestedAuthMode === "logon"
+        ? "Logon + senha"
+        : ctx.suggestedAuthMode === "bearer_sso"
+          ? "Bearer + Ssotoken"
+          : "OAuth / client credentials"
+    }`,
+    `Usuário/logon conhecido: ${(ctx.serasa.username || "").trim() ? "sim" : "não"}`,
+    `Token da API salvo: ${ctx.serasa.has_api_token ? "sim" : "não"}`,
+    `Token SSO salvo: ${ctx.serasa.has_sso_token ? "sim" : "não"}`,
+    `Senha premium configurada: ${ctx.security.has_validation_password ? "sim" : "não"}`,
+    `SCC Check habilitado: ${ctx.features.allow_scc_check ? "sim" : "não"}`,
+  ];
+  serasaWizard.innerHTML = `
+    <div class="assistant-card">
+      <div class="assistant-header">
+        <div>
+          <span class="eyebrow">Assistente Serasa</span>
+          <h3>Configuração guiada</h3>
+          <p>Eu já li o que o sistema conhece hoje. Use os atalhos abaixo para preencher o essencial e deixe o técnico só para a parte avançada.</p>
+        </div>
+        <span class="status-chip ${productionReady ? "assistant-ok" : ""}">${productionReady ? "Pronto" : "Pendente"}</span>
+      </div>
+      <div class="assistant-columns">
+        <section>
+          <h4>O que já encontramos</h4>
+          <ul class="assistant-list">
+            ${knownData.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
+          </ul>
+        </section>
+        <section>
+          <h4>O que falta para produção</h4>
+          <ul class="assistant-list">
+            ${ctx.productionPending.length
+              ? ctx.productionPending.map((item) => `<li>${escapeHtml(item)}</li>`).join("")
+              : "<li>Campos mínimos preenchidos para produção real.</li>"}
+          </ul>
+        </section>
+      </div>
+        <div class="assistant-actions">
+          <button type="button" class="secondary-button" data-serasa-assistant-action="apply-known">Preencher formulário com o que já temos</button>
+          <button type="button" class="secondary-button" data-serasa-assistant-action="use-logon">Usar logon + senha</button>
+          <button type="button" class="secondary-button" data-serasa-assistant-action="use-sandbox">Manter em sandbox seguro</button>
+        </div>
+      </div>
+    `;
+}
+
+function applySerasaAssistantAction(action) {
+  const ctx = getSerasaAssistantContext();
+  if (adminAdvanced) {
+    adminAdvanced.open = true;
+  }
+  bureauProvider.value = "serasa";
+  if (action === "use-sandbox" || action === "apply-known") {
+    bureauEnvironment.value = "sandbox";
+  }
+  if (action === "use-logon" || ctx.suggestedAuthMode === "logon") {
+    bureauAuthMode.value = "logon";
+  } else if (ctx.suggestedAuthMode === "bearer_sso") {
+    bureauAuthMode.value = "bearer_sso";
+  }
+  bureauBaseUrl.value = ctx.serasa.base_url || bureauBaseUrl.value || "https://api.scccheck.com.br";
+  bureauUsername.value = ctx.serasa.username || bureauUsername.value;
+  bureauPortalUrl.value = ctx.serasa.portal_url || bureauPortalUrl.value || "https://sso.gruporaizato.com.br/login";
+  bureauOrigin.value = ctx.serasa.origin || bureauOrigin.value || "https://sistema.scccheck.com.br";
+  bureauTokenPath.value = ctx.serasa.token_path || bureauTokenPath.value || "/oauth/token";
+  if (!bureauProductCode.value && ctx.features.allow_scc_check) {
+    bureauProductCode.value = "SCC_CHECK";
+  }
+  if (!bureauConsultPath.value) {
+    bureauConsultPath.value = ctx.serasa.consult_path || "/scc-check-v2/consultas";
+  }
+  renderSerasaWizard();
+  showStatus("Assistente Serasa aplicou a configuração conhecida no formulário. Agora revise os campos pendentes e salve.", "success");
+}
+
+function setAdminUserFeedback(message, type = "info", title = "Cadastro") {
+  if (!adminUserFeedback || !adminUserFeedbackTitle || !adminUserFeedbackMessage) {
+    showStatus(message, type);
+    return;
+  }
+  adminUserFeedback.hidden = false;
+  adminUserFeedback.dataset.type = type;
+  adminUserFeedbackTitle.textContent = title;
+  adminUserFeedbackMessage.textContent = message;
+}
+
+function clearAdminUserFeedback() {
+  if (!adminUserFeedback) return;
+  adminUserFeedback.hidden = true;
+  adminUserFeedback.dataset.type = "info";
+  if (adminUserFeedbackTitle) adminUserFeedbackTitle.textContent = "Cadastro";
+  if (adminUserFeedbackMessage) adminUserFeedbackMessage.textContent = "";
+}
+
+function showChangePassword(message = "", level = "info") {
+  if (!changePasswordOverlay) return;
+  changePasswordOverlay.classList.add("is-active");
+  document.body.classList.add("auth-locked");
+  if (message && changePasswordStatus) {
+    changePasswordStatus.innerHTML = `<strong>${level === "error" ? "Revise a senha" : "Atualize sua senha"}</strong><span>${escapeHtml(message)}</span>`;
+  }
+}
+
+function hideChangePassword() {
+  if (!changePasswordOverlay) return;
+  changePasswordOverlay.classList.remove("is-active");
+  if (!loginOverlay.classList.contains("is-active")) {
+    document.body.classList.remove("auth-locked");
+  }
+}
+
+function showLogin(message = "", level = "info") {
+  document.body.classList.add("auth-locked");
+  loginOverlay.classList.add("is-active");
+  if (message) {
+    loginStatus.innerHTML = `<strong>${level === "error" ? "Acesso negado" : "Entrar para continuar"}</strong><span>${escapeHtml(message)}</span>`;
+  }
+}
+
+function hideLogin() {
+  loginOverlay.classList.remove("is-active");
+  if (!changePasswordOverlay.classList.contains("is-active")) {
+    document.body.classList.remove("auth-locked");
+  }
+}
+
+function applyAuthState() {
+  if (currentUser) {
+    authUserChip.textContent = `${currentUser.name || currentUser.email} · ${currentUser.role}`;
+    authLogoutButton.disabled = false;
+    hideLogin();
+    if (currentUser.must_change_password) {
+      showChangePassword("Este é um acesso novo ou resetado. Digite a nova senha e confirme para liberar o sistema.");
+    } else {
+      hideChangePassword();
+    }
+  } else {
+    authUserChip.textContent = "Sem sessão";
+    authLogoutButton.disabled = true;
+    hideChangePassword();
+    showLogin();
+  }
+  const adminTab = Array.from(tabButtons).find((item) => item.dataset.tab === "admin");
+  if (adminTab) {
+    adminTab.style.display = currentUserHas("configurar_modulos") || currentUserHas("gerenciar_credenciais_serasa") ? "" : "none";
+  }
+  const premiumTab = Array.from(tabButtons).find((item) => item.dataset.tab === "serasa-premium");
+  if (premiumTab) {
+    premiumTab.style.display = currentUserHas("usar_serasa_premium") ? "" : "none";
+  }
+  setSerasaPremiumReadyState();
+}
+
+async function bootstrapAuth() {
+  try {
+    const rememberedLogin = localStorage.getItem(REMEMBER_LOGIN_KEY) || "";
+    if (loginUser && rememberedLogin) {
+      loginUser.value = rememberedLogin;
+      if (loginRemember) loginRemember.checked = true;
+    }
+    const response = await fetch("/api/auth/session");
+    const payload = await response.json();
+    if (payload.authenticated) {
+      currentUser = payload.user;
+      if (serasaUser) serasaUser.value = currentUser.email || "";
+      if (serasaPremiumUser) serasaPremiumUser.value = currentUser.email || "";
+      applyAuthState();
+      return;
+    }
+    currentUser = null;
+    const defaultCreds = payload.default_credentials || {};
+    loginStatus.innerHTML = `<strong>Acesso inicial</strong><span>Login padrão: ${escapeHtml(defaultCreds.login || "admin@scriptt")} · Senha inicial: ${escapeHtml(defaultCreds.password || "Scriptt@123")}</span>`;
+    applyAuthState();
+  } catch {
+    currentUser = null;
+    showLogin("Não foi possível validar a sessão no backend.", "error");
+  }
+}
+
+async function loginApp() {
+  const login = loginUser.value.trim();
+  const password = loginPassword.value;
+  if (!login || !password) {
+    showLogin("Informe login e senha para entrar.", "error");
+    return;
+  }
+  try {
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ login, password }),
+    });
+    const payload = await response.json();
+    if (!response.ok || !payload.ok) {
+      showLogin(payload.erro || "Não foi possível entrar.", "error");
+      return;
+    }
+    currentUser = payload.user;
+    if (loginRemember?.checked) {
+      localStorage.setItem(REMEMBER_LOGIN_KEY, login);
+    } else {
+      localStorage.removeItem(REMEMBER_LOGIN_KEY);
+    }
+    if (serasaUser) serasaUser.value = currentUser.email || "";
+    if (serasaPremiumUser) serasaPremiumUser.value = currentUser.email || "";
+    loginPassword.value = "";
+    applyAuthState();
+    renderDashboard();
+  } catch {
+    showLogin("Falha ao autenticar no servidor.", "error");
+  }
+}
+
+async function logoutApp() {
+  try {
+    await fetch("/api/auth/logout", { method: "POST" });
+  } catch {
+    // ignore
+  }
+  currentUser = null;
+  applyAuthState();
+}
+
+async function submitPasswordChange() {
+  const newPassword = changePasswordNew?.value || "";
+  const confirmPassword = changePasswordConfirm?.value || "";
+  if (!newPassword || !confirmPassword) {
+    showChangePassword("Preencha a nova senha e a confirmação.", "error");
+    return;
+  }
+  try {
+    const response = await fetch("/api/auth/change-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        new_password: newPassword,
+        confirm_password: confirmPassword,
+      }),
+    });
+    const payload = await response.json();
+    if (!response.ok || !payload.ok) {
+      showChangePassword(payload.erro || "Não foi possível atualizar a senha.", "error");
+      return;
+    }
+    currentUser = payload.user;
+    if (changePasswordForm) changePasswordForm.reset();
+    hideChangePassword();
+    applyAuthState();
+    showStatus("Senha atualizada com sucesso. Acesso liberado.", "success");
+  } catch {
+    showChangePassword("Falha ao atualizar a senha no servidor.", "error");
+  }
+}
+
+function clearCpfInputs() {
+  if (cpfDocument) cpfDocument.value = "";
+  if (cpfName) cpfName.value = "";
+  setCpfStatus("CPF usa crédito Serasa/sandbox e preenche Resultado e Resumo.", "idle");
+}
 
 input.addEventListener("input", () => {
   input.value = maskCnpj(input.value);
 });
+
+if (cpfDocument) {
+  cpfDocument.addEventListener("input", () => {
+    cpfDocument.value = formatDocument(cpfDocument.value);
+  });
+}
+
+if (loginForm) {
+  loginForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    await loginApp();
+  });
+}
+
+if (changePasswordForm) {
+  changePasswordForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    await submitPasswordChange();
+  });
+}
+
+if (authLogoutButton) {
+  authLogoutButton.addEventListener("click", async () => {
+    await logoutApp();
+  });
+}
 
 tabButtons.forEach((tabButton) => {
   tabButton.addEventListener("click", () => {
@@ -118,6 +695,13 @@ form.addEventListener("submit", async (event) => {
   await consultar(input.value.trim());
 });
 
+if (cpfForm && cpfDocument && cpfName) {
+  cpfForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    await consultarCpfFluxo(cpfDocument.value, cpfName.value);
+  });
+}
+
 historySearch.addEventListener("input", () => {
   renderHistory(historySearch.value);
 });
@@ -131,8 +715,15 @@ historyList.addEventListener("click", (event) => {
       return;
     }
     lastCreditAnalysis = item.data;
+    lastCreditSubjectName = item.name || (item.documentType === "CPF" ? "Titular do CPF" : "");
     serasaDocument.value = formatDocument(item.document);
+    if (serasaSubjectName) {
+      serasaSubjectName.value = item.name || "";
+    }
     renderSerasaResult(item.data, item.mock);
+    if (item.documentType === "CPF") {
+      renderCreditDocumentResult(item.data, item.mock);
+    }
     serasaPrint.disabled = false;
     renderDashboard();
     renderSummaryPreview();
@@ -152,6 +743,9 @@ historyList.addEventListener("click", (event) => {
   }
 
   input.value = payload.cnpj_formatado || formatCnpj(payload.dados?.cnpj || "");
+  if (serasaSubjectName) {
+    serasaSubjectName.value = payload.dados?.razao_social || payload.dados?.nome_fantasia || "";
+  }
   setActiveView("resultado");
   showPayload(payload, "Resultado carregado do historico local.");
 });
@@ -178,25 +772,28 @@ exportCsvButton.addEventListener("click", () => {
 });
 
 exportPdfButton.addEventListener("click", () => {
-  if (!lastPayload) {
+  if (!lastPayload && !lastCreditAnalysis) {
     return;
   }
 
-  openPrintableReport(lastPayload);
+  lastPayload ? openPrintableReport(lastPayload) : openCreditReport(lastCreditAnalysis);
 });
 
 printReportButton.addEventListener("click", () => {
-  if (!lastPayload) {
+  if (!lastPayload && !lastCreditAnalysis) {
     return;
   }
 
-  openPrintableReport(lastPayload);
+  lastPayload ? openPrintableReport(lastPayload) : openCreditReport(lastCreditAnalysis);
 });
 
-newButtons.forEach((newButton) => {
+  newButtons.forEach((newButton) => {
   newButton.addEventListener("click", () => {
     input.value = "";
+    clearCpfInputs();
+    if (serasaSubjectName) serasaSubjectName.value = "";
     lastPayload = null;
+    lastCreditSubjectName = "";
     resultBox.innerHTML = emptyResult();
     summaryText.value = "";
     updateWhatsappLink("");
@@ -204,7 +801,7 @@ newButtons.forEach((newButton) => {
     renderRecommendations(null);
     renderReferences("");
     renderSerasaEmpty();
-    setTrafficState("idle", "Pronto para consultar", "Informe um CNPJ ou selecione um cliente do GEST para iniciar a análise.");
+    setTrafficState("idle", "Pronto para consultar", "Informe um CNPJ, CPF ou selecione um cliente do GEST para iniciar a análise.");
     setExportEnabled(false);
     showStatus("Pronto para consultar.", "idle");
     renderDashboard();
@@ -281,7 +878,7 @@ loadClientsButton.addEventListener("click", () => {
   loadGestClients();
 });
 
-[gestSearch, gestCode, gestCnpj, gestStart, gestEnd].forEach((field) => {
+[gestSearch, gestCode, gestCnpj, gestCpf, gestStart, gestEnd].forEach((field) => {
   field.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       loadGestClients();
@@ -297,20 +894,61 @@ gestCnpj.addEventListener("input", () => {
   gestCnpj.value = maskCnpj(gestCnpj.value);
 });
 
+if (gestCpf) {
+  gestCpf.addEventListener("input", () => {
+    gestCpf.value = formatDocument(gestCpf.value);
+  });
+}
+
 referenceLimit.addEventListener("blur", () => {
   referenceLimit.value = formatCurrencyInput(referenceLimit.value);
 });
 
 serasaForm.addEventListener("submit", async (event) => {
   event.preventDefault();
-  await runSerasaAnalysis(serasaDocument.value);
+  await runSerasaAnalysis(serasaDocument.value, {
+    subjectName: serasaSubjectName?.value?.trim() || "",
+  });
 });
 
 serasaPrint.addEventListener("click", () => {
-  if (lastCreditAnalysis) {
+  if (lastPayload) {
+    openPrintableReport(lastPayload);
+  } else if (lastCreditAnalysis) {
     openCreditReport(lastCreditAnalysis);
   }
 });
+
+if (serasaPremiumForm) {
+  serasaPremiumForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    await runSerasaPremiumAnalysis();
+  });
+}
+
+if (serasaWizard) {
+  serasaWizard.addEventListener("click", (event) => {
+    const actionButton = event.target.closest("[data-serasa-assistant-action]");
+    if (!actionButton) return;
+    applySerasaAssistantAction(actionButton.dataset.serasaAssistantAction);
+  });
+}
+
+[serasaPremiumDocument, serasaPremiumPassword, serasaPremiumProduct].forEach((field) => {
+  if (field) {
+    field.addEventListener("input", () => {
+      setSerasaPremiumReadyState();
+    });
+  }
+});
+
+if (serasaPremiumPrint) {
+  serasaPremiumPrint.addEventListener("click", () => {
+    if (lastSerasaPremiumAnalysis) {
+      openCreditReport(lastSerasaPremiumAnalysis);
+    }
+  });
+}
 
 portfolioRun.addEventListener("click", () => {
   runPortfolioAnalysis();
@@ -344,9 +982,17 @@ adminForm.addEventListener("submit", (event) => {
   addAdminUser();
 });
 
-clearCurrentButton.addEventListener("click", () => {
-  clearCurrentAnalysis();
-});
+if (adminUserRole) {
+  adminUserRole.addEventListener("change", () => {
+    setPermissionInputs(adminUserRole.value);
+  });
+}
+
+if (clearCurrentButton) {
+  clearCurrentButton.addEventListener("click", () => {
+    clearCurrentAnalysis();
+  });
+}
 
 historyTabs.forEach((tab) => {
   tab.addEventListener("click", () => {
@@ -356,29 +1002,138 @@ historyTabs.forEach((tab) => {
   });
 });
 
-summaryPrintButton.addEventListener("click", () => {
-  if (lastPayload) {
-    openPrintableReport(lastPayload);
-  } else if (lastCreditAnalysis) {
-    openCreditReport(lastCreditAnalysis);
+if (summaryPrintButton) {
+  summaryPrintButton.addEventListener("click", () => {
+    if (lastPayload) {
+      openPrintableReport(lastPayload);
+    } else if (lastCreditAnalysis) {
+      openCreditReport(lastCreditAnalysis);
+    }
+  });
+}
+
+if (saveConsultationButton) {
+  saveConsultationButton.addEventListener("click", () => {
+    saveCurrentConsultation();
+  });
+}
+
+if (storageForm) {
+  storageForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    adminSettings = {
+      storagePath: storagePath.value.trim(),
+      storageMode: storageMode.value,
+      storageCloud: storageCloud.value,
+      updatedAt: new Date().toISOString(),
+    };
+    saveAdminSettings();
+    loadAdminPanel();
+    showStatus("Configuração de armazenamento salva.", "success");
+  });
+}
+
+bureauForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const selected = bureauProvider.value;
+  const existingProviders = bureauSettings.providers || {};
+  const payload = {
+    provider: selected,
+    environment: bureauEnvironment.value,
+      providers: {
+        serasa: {
+          base_url: selected === "serasa" ? bureauBaseUrl.value.trim() : (existingProviders.serasa?.base_url || ""),
+          client_id: selected === "serasa" ? bureauClientId.value.trim() : (existingProviders.serasa?.client_id || ""),
+          client_secret: selected === "serasa" ? bureauClientSecret.value.trim() : "",
+          auth_mode: selected === "serasa" ? bureauAuthMode.value : (existingProviders.serasa?.auth_mode || "oauth"),
+          username: selected === "serasa" ? bureauUsername.value.trim() : (existingProviders.serasa?.username || ""),
+          password: selected === "serasa" ? bureauPassword.value.trim() : "",
+          api_token: selected === "serasa" ? bureauApiToken.value.trim() : "",
+          sso_token: selected === "serasa" ? bureauSsoToken.value.trim() : "",
+          origin: selected === "serasa" ? bureauOrigin.value.trim() : (existingProviders.serasa?.origin || "https://sistema.scccheck.com.br"),
+          portal_url: selected === "serasa" ? bureauPortalUrl.value.trim() : (existingProviders.serasa?.portal_url || ""),
+          consult_path: selected === "serasa" ? bureauConsultPath.value.trim() : (existingProviders.serasa?.consult_path || ""),
+          token_path: selected === "serasa" ? bureauTokenPath.value.trim() : (existingProviders.serasa?.token_path || "/oauth/token"),
+          product_code: selected === "serasa" ? bureauProductCode.value.trim() : (existingProviders.serasa?.product_code || ""),
+        },
+      boavista: {
+        base_url: selected === "boavista" ? bureauBaseUrl.value.trim() : (existingProviders.boavista?.base_url || ""),
+        client_id: selected === "boavista" ? bureauClientId.value.trim() : (existingProviders.boavista?.client_id || ""),
+        client_secret: selected === "boavista" ? bureauClientSecret.value.trim() : "",
+        auth_mode: existingProviders.boavista?.auth_mode || "oauth",
+        username: existingProviders.boavista?.username || "",
+        password: "",
+        consult_path: existingProviders.boavista?.consult_path || "",
+        token_path: existingProviders.boavista?.token_path || "/oauth/token",
+        product_code: existingProviders.boavista?.product_code || "",
+      },
+      quod: {
+        base_url: selected === "quod" ? bureauBaseUrl.value.trim() : (existingProviders.quod?.base_url || ""),
+        client_id: selected === "quod" ? bureauClientId.value.trim() : (existingProviders.quod?.client_id || ""),
+        client_secret: selected === "quod" ? bureauClientSecret.value.trim() : "",
+        auth_mode: existingProviders.quod?.auth_mode || "oauth",
+        username: existingProviders.quod?.username || "",
+        password: "",
+        consult_path: existingProviders.quod?.consult_path || "",
+        token_path: existingProviders.quod?.token_path || "/oauth/token",
+        product_code: existingProviders.quod?.product_code || "",
+      },
+    },
+    security: {
+      validation_password: bureauValidationPassword?.value?.trim() || "",
+    },
+    features: {
+      serasa_premium_enabled: Boolean(bureauFeaturePremium?.checked),
+      allow_scc_check: Boolean(bureauFeatureScc?.checked),
+    },
+  };
+
+  try {
+    const response = await fetch("/api/admin/bureau-config", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const result = await response.json();
+    if (!response.ok || !result.ok) {
+      showStatus(result.erro || "Não foi possível salvar o bureau.", "error");
+      return;
+    }
+    bureauSettings = result.config || {};
+    applyBureauSettingsToForm();
+    loadAdminPanel();
+    showStatus("Configuração do bureau salva no backend local.", "success");
+  } catch {
+    showStatus("Falha ao salvar a configuração do bureau.", "error");
   }
 });
 
-saveConsultationButton.addEventListener("click", () => {
-  saveCurrentConsultation();
-});
-
-storageForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  adminSettings = {
-    storagePath: storagePath.value.trim(),
-    storageMode: storageMode.value,
-    storageCloud: storageCloud.value,
-    updatedAt: new Date().toISOString(),
-  };
-  saveAdminSettings();
-  loadAdminPanel();
-  showStatus("Configuração de armazenamento salva.", "success");
+bureauProvider.addEventListener("change", () => {
+  const selected = bureauProvider.value;
+  const current = bureauSettings.providers?.[selected] || {};
+  bureauBaseUrl.value = current.base_url || "";
+  bureauClientId.value = current.client_id || "";
+  bureauClientSecret.value = "";
+   bureauAuthMode.value = current.auth_mode || "oauth";
+   bureauUsername.value = current.username || "";
+   bureauPassword.value = "";
+   bureauConsultPath.value = current.consult_path || "";
+   bureauTokenPath.value = current.token_path || "/oauth/token";
+   bureauProductCode.value = current.product_code || "";
+  bureauClientSecret.placeholder = current.has_client_secret
+    ? "Segredo já salvo. Preencha apenas para substituir"
+    : "Informe o client secret";
+  bureauPassword.placeholder = current.has_password
+    ? "Senha já salva. Preencha apenas para substituir"
+    : "Informe a senha do logon";
+  bureauApiToken.placeholder = current.has_api_token
+    ? "Token da API já salvo. Preencha apenas para substituir"
+    : "Cole o Bearer token da API";
+  bureauSsoToken.placeholder = current.has_sso_token
+    ? "Token SSO já salvo. Preencha apenas para substituir"
+    : "Cole o token SSO";
+  updateBureauAuthVisibility();
+  renderSerasaWizard();
 });
 
 clientsBox.addEventListener("click", async (event) => {
@@ -398,8 +1153,17 @@ clientsBox.addEventListener("click", async (event) => {
   }
 
   if (consultButton) {
-    input.value = consultButton.dataset.consultClient;
-    await consultar(input.value);
+    const documentValue = consultButton.dataset.consultClient || "";
+    const documentType = consultButton.dataset.consultType || "";
+    const subjectName = consultButton.dataset.consultName || "";
+    if (documentType === "CPF" || onlyDigits(documentValue).length === 11) {
+      if (cpfDocument) cpfDocument.value = formatDocument(documentValue);
+      if (cpfName) cpfName.value = subjectName;
+      await consultarCpfFluxo(documentValue, subjectName);
+    } else {
+      input.value = documentValue;
+      await consultar(input.value);
+    }
     return;
   }
 
@@ -413,8 +1177,8 @@ clientsBox.addEventListener("click", async (event) => {
   }
 
   if (okButton) {
-    const cnpj = onlyDigits(okButton.dataset.okClient);
-    clientOk[cnpj] = {
+    const documentValue = onlyDigits(okButton.dataset.okClient);
+    clientOk[documentValue] = {
       checkedAt: new Date().toISOString(),
       status: "ok_usuario",
     };
@@ -436,6 +1200,9 @@ function setActiveView(viewName) {
   });
   if (target === "dashboard") {
     renderDashboard();
+  }
+  if (target === "analise-credito") {
+    renderCreditWorkbench();
   }
   if (target === "resumo") {
     renderSummaryPreview();
@@ -506,6 +1273,7 @@ async function loadGestClients() {
       q: gestSearch.value.trim(),
       codigo: gestCode.value.trim(),
       cnpj: gestCnpj.value.trim(),
+      cpf: gestCpf?.value?.trim() || "",
       data_inicio: gestStart.value,
       data_fim: gestEnd.value,
     });
@@ -540,7 +1308,7 @@ function renderGestClients(clientes) {
       <thead>
         <tr>
           <th>${sortHeader("Cliente", "nome")}</th>
-          <th>${sortHeader("CNPJ", "cnpj")}</th>
+          <th>${sortHeader("Documento", "documento")}</th>
           <th>${sortHeader("Cidade/UF", "cidade")}</th>
           <th>${sortHeader("IE", "ie")}</th>
           <th>${sortHeader("Status", "status")}</th>
@@ -549,25 +1317,34 @@ function renderGestClients(clientes) {
       </thead>
       <tbody>
         ${visibleClients.map((cliente) => `
-          <tr class="${clientOk[onlyDigits(cliente.cnpj)] ? "user-ok-row" : ""}">
+          <tr class="${clientOk[onlyDigits(cliente.documento || cliente.cnpj || cliente.cpf || "")] ? "user-ok-row" : ""}">
             <td>
               <strong>${escapeHtml(cliente.nome || "Sem nome")}</strong>
               ${cliente.fantasia ? `<small>${escapeHtml(cliente.fantasia)}</small>` : ""}
               ${cliente.data_cadastro ? `<small>Cadastro: ${escapeHtml(formatDate(cliente.data_cadastro))}</small>` : ""}
             </td>
-            <td>${escapeHtml(cliente.cnpj)}</td>
+            <td>
+              <strong>${escapeHtml(cliente.documento || cliente.cnpj || cliente.cpf || "-")}</strong>
+              <small>${escapeHtml(cliente.documento_tipo || "Documento")}</small>
+            </td>
             <td>${escapeHtml([cliente.cidade, cliente.uf].filter(Boolean).join(" - "))}</td>
             <td>${escapeHtml(cliente.inscricao_estadual || "-")}</td>
             <td>
-              <span class="${cliente.cnpj_valido ? "valid-chip" : "invalid-chip"}">
-                ${cliente.cnpj_valido ? "Valido" : "Invalido"}
+              <span class="${cliente.documento_valido ? "valid-chip" : "invalid-chip"}">
+                ${cliente.documento_valido ? `${escapeHtml(cliente.documento_tipo || "Documento")} válido` : `${escapeHtml(cliente.documento_tipo || "Documento")} inválido`}
               </span>
             </td>
             <td>
               <div class="row-actions">
-                <button type="button" class="secondary-button" data-consult-client="${escapeHtml(cliente.cnpj)}">Consultar</button>
-                <button type="button" class="secondary-button" data-sintegra-client data-cnpj="${escapeHtml(cliente.cnpj)}" data-uf="${escapeHtml(cliente.uf || "")}">Sintegra</button>
-                <button type="button" class="secondary-button" data-ok-client="${escapeHtml(cliente.cnpj)}" ${clientOk[onlyDigits(cliente.cnpj)] ? "disabled" : ""}>${clientOk[onlyDigits(cliente.cnpj)] ? "OK usuario" : "Marcar OK"}</button>
+                <button
+                  type="button"
+                  class="secondary-button"
+                  data-consult-client="${escapeHtml(cliente.documento || cliente.cnpj || cliente.cpf || "")}"
+                  data-consult-type="${escapeHtml(cliente.documento_tipo || "")}"
+                  data-consult-name="${escapeHtml(cliente.nome || cliente.fantasia || "")}"
+                >Consultar</button>
+                ${cliente.documento_tipo === "CNPJ" ? `<button type="button" class="secondary-button" data-sintegra-client data-cnpj="${escapeHtml(cliente.cnpj)}" data-uf="${escapeHtml(cliente.uf || "")}">Sintegra</button>` : ""}
+                <button type="button" class="secondary-button" data-ok-client="${escapeHtml(cliente.documento || cliente.cnpj || cliente.cpf || "")}" ${clientOk[onlyDigits(cliente.documento || cliente.cnpj || cliente.cpf || "")] ? "disabled" : ""}>${clientOk[onlyDigits(cliente.documento || cliente.cnpj || cliente.cpf || "")] ? "OK usuário" : "Marcar OK"}</button>
               </div>
             </td>
           </tr>
@@ -575,6 +1352,7 @@ function renderGestClients(clientes) {
       </tbody>
     </table>
   `;
+  bindGestRowActions();
 }
 
 function filterGestClients(clientes) {
@@ -596,10 +1374,10 @@ function sortGestClients(clientes) {
 function gestSortValue(cliente, key) {
   const values = {
     nome: cliente.nome || cliente.fantasia || "",
-    cnpj: onlyDigits(cliente.cnpj),
+    documento: onlyDigits(cliente.documento || cliente.cnpj || cliente.cpf || ""),
     cidade: [cliente.cidade, cliente.uf].filter(Boolean).join(" "),
     ie: cliente.inscricao_estadual || "",
-    status: cliente.cnpj_valido ? "valido" : "invalido",
+    status: cliente.documento_valido ? "valido" : "invalido",
   };
   return String(values[key] || "");
 }
@@ -610,13 +1388,84 @@ function sortHeader(label, key) {
   return `<button type="button" class="sort-button ${active ? "is-active" : ""}" data-sort-clients="${escapeHtml(key)}">${escapeHtml(label)} <span>${arrow}</span></button>`;
 }
 
+function bindGestRowActions() {
+  clientsBox.querySelectorAll("[data-consult-client]").forEach((buttonElement) => {
+    if (buttonElement.dataset.boundClick === "true") {
+      return;
+    }
+    buttonElement.dataset.boundClick = "true";
+    buttonElement.addEventListener("click", async (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const documentValue = buttonElement.dataset.consultClient || "";
+      const documentType = buttonElement.dataset.consultType || "";
+      const subjectName = buttonElement.dataset.consultName || "";
+      if (documentType === "CPF" || onlyDigits(documentValue).length === 11) {
+        if (cpfDocument) cpfDocument.value = formatDocument(documentValue);
+        if (cpfName) cpfName.value = subjectName;
+        await consultarCpfFluxo(documentValue, subjectName);
+      } else {
+        input.value = documentValue;
+        await consultar(documentValue);
+      }
+    });
+  });
+
+  clientsBox.querySelectorAll("[data-sintegra-client]").forEach((buttonElement) => {
+    if (buttonElement.dataset.boundClick === "true") {
+      return;
+    }
+    buttonElement.dataset.boundClick = "true";
+    buttonElement.addEventListener("click", async (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const cnpj = buttonElement.dataset.cnpj || "";
+      const uf = buttonElement.dataset.uf || "";
+      await navigator.clipboard.writeText(cnpj);
+      window.open("http://www.sintegra.gov.br/", "_blank", "noopener");
+      showStatus(`CNPJ copiado para consulta no Sintegra ${uf || ""}.`, "success");
+    });
+  });
+
+  clientsBox.querySelectorAll("[data-ok-client]").forEach((buttonElement) => {
+    if (buttonElement.dataset.boundClick === "true") {
+      return;
+    }
+    buttonElement.dataset.boundClick = "true";
+    buttonElement.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const documentValue = onlyDigits(buttonElement.dataset.okClient);
+      clientOk[documentValue] = {
+        checkedAt: new Date().toISOString(),
+        status: "ok_usuario",
+      };
+      saveClientOk();
+      buttonElement.textContent = "OK usuário";
+      buttonElement.disabled = true;
+      buttonElement.closest("tr")?.classList.add("user-ok-row");
+      showStatus("Cliente marcado como OK pelo usuário.", "success");
+    });
+  });
+}
+
 function showPayload(payload, message) {
   lastPayload = payload;
   lastInternalHistory = null;
   renderResult(payload);
+  renderCreditWorkbench();
   renderRecommendations(payload);
   renderReferences(onlyDigits(payload.cnpj_formatado || payload.dados?.cnpj || ""));
   serasaDocument.value = payload.cnpj_formatado || formatCnpj(payload.dados?.cnpj || "");
+  if (serasaSubjectName) {
+    serasaSubjectName.value = payload.dados?.razao_social || payload.dados?.nome_fantasia || "";
+  }
+  if (serasaPremiumDocument) {
+    serasaPremiumDocument.value = payload.cnpj_formatado || formatCnpj(payload.dados?.cnpj || "");
+  }
+  if (serasaPremiumSubjectName) {
+    serasaPremiumSubjectName.value = payload.dados?.razao_social || payload.dados?.nome_fantasia || "";
+  }
   renderSerasaReady(payload);
   renderPartners(payload);
   const summary = buildSummary(payload);
@@ -659,6 +1508,7 @@ async function loadInternalHistory(payload) {
 
   if (lastPayload === payload) {
     renderResult(payload);
+    renderCreditWorkbench();
     summaryText.value = buildSummary(payload);
     updateWhatsappLink(summaryText.value);
     renderSummaryPreview();
@@ -666,7 +1516,7 @@ async function loadInternalHistory(payload) {
   }
 }
 
-async function runSerasaAnalysis(documentValue) {
+async function runSerasaAnalysis(documentValue, options = {}) {
   const digits = onlyDigits(documentValue);
   if (![11, 14].includes(digits.length)) {
     renderSerasaError("Informe um CPF ou CNPJ valido para análise de crédito.");
@@ -675,6 +1525,12 @@ async function runSerasaAnalysis(documentValue) {
 
   const type = digits.length === 14 ? "cnpj" : "cpf";
   if (type === "cpf") {
+    lastPayload = null;
+    lastInternalHistory = null;
+    lastCreditSubjectName = options.subjectName || lastCreditSubjectName || "Titular do CPF";
+    if (serasaSubjectName) {
+      serasaSubjectName.value = lastCreditSubjectName === "Titular do CPF" ? "" : lastCreditSubjectName;
+    }
     renderPartners(null);
     partnerResult.innerHTML = `
       <div class="empty-row">
@@ -699,17 +1555,122 @@ async function runSerasaAnalysis(documentValue) {
       return;
     }
     lastCreditAnalysis = payload.data;
-    addCreditHistory(payload.data, payload.mock, type === "cpf" ? "CPF analisado" : "");
+    addCreditHistory(payload.data, payload.mock, type === "cpf" ? lastCreditSubjectName || "CPF analisado" : "");
     renderSerasaResult(payload.data, payload.mock);
+    if (type === "cpf") {
+      renderCreditDocumentResult(payload.data, payload.mock);
+      renderCreditWorkbench();
+      renderRecommendations(null);
+      renderReferences("");
+      setExportEnabled(true);
+      setCpfStatus(
+        payload.mock
+          ? "CPF analisado em modo sandbox/mock. Nome deve ser informado manualmente ou por API cadastral real."
+          : "CPF analisado com sucesso.",
+        "success"
+      );
+      setTrafficState("green", "CPF analisado", "Resultado de crédito carregado. Revise a aba Resultado e o Resumo para documentação.");
+      if (options.navigateToResult) {
+        setActiveView("resultado");
+      }
+    }
     serasaPrint.disabled = false;
     summaryPrintButton.disabled = false;
     saveConsultationButton.disabled = false;
     renderDashboard();
-    summaryText.value = lastPayload ? buildSummary(lastPayload) : summaryText.value;
+    summaryText.value = lastPayload ? buildSummary(lastPayload) : buildCreditSummary(lastCreditAnalysis);
     updateWhatsappLink(summaryText.value);
     renderSummaryPreview();
+    renderCreditWorkbench();
   } catch {
     renderSerasaError("Dados Serasa indisponíveis no momento.");
+    setCpfStatus("Não foi possível analisar o CPF agora.", "error");
+  }
+}
+
+async function consultarCpfFluxo(documentValue, nameValue = "") {
+  const digits = onlyDigits(documentValue);
+  if (digits.length !== 11) {
+    setCpfStatus("Informe um CPF válido.", "error");
+    return;
+  }
+
+  setCpfStatus("Analisando CPF no fluxo principal...", "loading");
+  serasaDocument.value = formatDocument(digits);
+  if (serasaPremiumDocument) serasaPremiumDocument.value = formatDocument(digits);
+  lastCreditSubjectName = nameValue.trim() || "Titular do CPF";
+  if (serasaSubjectName) {
+    serasaSubjectName.value = nameValue.trim();
+  }
+  if (serasaPremiumSubjectName) {
+    serasaPremiumSubjectName.value = nameValue.trim();
+  }
+  await runSerasaAnalysis(digits, {
+    subjectName: lastCreditSubjectName,
+    source: "consulta",
+    navigateToResult: true,
+  });
+}
+
+async function runSerasaPremiumAnalysis() {
+  const documentValue = serasaPremiumDocument?.value || "";
+  const digits = onlyDigits(documentValue);
+  const userLogin = serasaPremiumUser?.value?.trim() || "operador";
+  const selectedProduct = serasaPremiumProduct?.value || "SCC_CHECK";
+  const readiness = getSerasaPremiumReadiness();
+  if (![11, 14].includes(digits.length)) {
+    renderSerasaPremiumError("Informe um CPF ou CNPJ válido para o serviço pago.");
+    return;
+  }
+  if (!userHasPermission(userLogin, "usar_serasa_premium")) {
+    renderSerasaPremiumError("Este usuário não possui acesso à área Serasa Premium.");
+    return;
+  }
+  if (selectedProduct === "SCC_CHECK" && !userHasPermission(userLogin, "usar_scc_check")) {
+    renderSerasaPremiumError("Este usuário não possui permissão para SCC Check.");
+    return;
+  }
+  if (!serasaPremiumPassword?.value?.trim()) {
+    renderSerasaPremiumError("Informe a senha de validação para usar o serviço pago.");
+    return;
+  }
+  if (!readiness.hasValidation) {
+    renderSerasaPremiumError("A senha premium ainda não foi configurada no Admin.");
+    return;
+  }
+
+  serasaPremiumStatus.textContent = "Consultando";
+  serasaPremiumStatus.dataset.level = "watch";
+  serasaPremiumBoard.innerHTML = loadingCreditResult();
+
+  try {
+    const response = await fetch("/api/serasa/premium/consultar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        document: digits,
+        document_type: digits.length === 14 ? "CNPJ" : "CPF",
+        queried_by: userLogin,
+        query_reason: serasaPremiumReason?.value?.trim() || "analise_credito_premium",
+        legal_basis: serasaPremiumLegal?.value?.trim() || "proteção ao crédito",
+        product: selectedProduct,
+        subject_name: serasaPremiumSubjectName?.value?.trim() || "",
+        validation_password: serasaPremiumPassword.value.trim(),
+      }),
+    });
+    const payload = await response.json();
+    if (!response.ok || !payload.ok) {
+      renderSerasaPremiumError(payload.erro || "Serviço premium indisponível no momento.");
+      return;
+    }
+    lastSerasaPremiumAnalysis = payload.data;
+    lastCreditAnalysis = payload.data;
+    renderSerasaPremiumResult(payload.data, payload.mock, selectedProduct);
+    serasaPremiumPrint.disabled = false;
+    renderSummaryPreview();
+    renderDashboard();
+  } catch {
+    renderSerasaPremiumError("Falha ao consultar o serviço pago Serasa.");
   }
 }
 
@@ -791,15 +1752,66 @@ async function loadAdminPanel() {
   storageMode.value = adminSettings.storageMode || "local_db";
   storageCloud.value = adminSettings.storageCloud || "none";
   try {
-    const response = await fetch("/api/admin/credito");
-    const payload = await response.json();
-    if (!response.ok || !payload.ok) {
+    const [adminResponse, bureauResponse] = await Promise.all([
+      fetch("/api/admin/credito"),
+      fetch("/api/admin/bureau-config"),
+    ]);
+    const payload = await adminResponse.json();
+    const bureauPayload = await bureauResponse.json();
+    if (!adminResponse.ok || !payload.ok) {
       return;
     }
+    if (bureauResponse.ok && bureauPayload.ok) {
+      bureauSettings = bureauPayload.config || {};
+      applyBureauSettingsToForm();
+      renderSerasaWizard();
+    }
+    adminUsers = payload.users || [];
+    currentUser = payload.current_user || currentUser;
+    applyAuthState();
     renderAdminPanel(payload);
   } finally {
     adminLoad.disabled = false;
   }
+}
+
+function applyBureauSettingsToForm() {
+  const provider = bureauSettings.provider || "mock";
+  const environment = bureauSettings.environment || "sandbox";
+  const current = bureauSettings.providers?.[provider] || {};
+  bureauProvider.value = provider;
+  bureauEnvironment.value = environment;
+  bureauBaseUrl.value = current.base_url || "";
+  bureauClientId.value = current.client_id || "";
+  bureauClientSecret.value = "";
+  bureauAuthMode.value = current.auth_mode || "oauth";
+  bureauUsername.value = current.username || "";
+  bureauPassword.value = "";
+  bureauApiToken.value = "";
+  bureauSsoToken.value = "";
+  bureauPortalUrl.value = current.portal_url || "";
+  bureauOrigin.value = current.origin || "https://sistema.scccheck.com.br";
+  bureauConsultPath.value = current.consult_path || "";
+  bureauTokenPath.value = current.token_path || "/oauth/token";
+  bureauProductCode.value = current.product_code || "";
+  bureauValidationPassword.value = "";
+  bureauFeaturePremium.checked = Boolean(bureauSettings.features?.serasa_premium_enabled);
+  bureauFeatureScc.checked = Boolean(bureauSettings.features?.allow_scc_check);
+  bureauClientSecret.placeholder = current.has_client_secret
+    ? "Segredo já salvo. Preencha apenas para substituir"
+    : "Informe o client secret";
+  bureauPassword.placeholder = current.has_password
+    ? "Senha já salva. Preencha apenas para substituir"
+    : "Informe a senha do logon";
+  bureauApiToken.placeholder = current.has_api_token
+    ? "Token da API já salvo. Preencha apenas para substituir"
+    : "Cole o Bearer token da API";
+  bureauSsoToken.placeholder = current.has_sso_token
+    ? "Token SSO já salvo. Preencha apenas para substituir"
+    : "Cole o token SSO";
+  updateBureauAuthVisibility();
+  setSerasaPremiumReadyState();
+  renderSerasaWizard();
 }
 
 function setLoading(isLoading) {
@@ -809,27 +1821,32 @@ function setLoading(isLoading) {
 
 function clearCurrentAnalysis() {
   input.value = "";
+  clearCpfInputs();
   serasaDocument.value = "";
+  if (serasaSubjectName) serasaSubjectName.value = "";
   lastPayload = null;
   lastCreditAnalysis = null;
   lastInternalHistory = null;
+  lastCreditSubjectName = "";
   resultBox.innerHTML = emptyResult();
   summaryText.value = "";
   renderSummaryPreview();
   updateWhatsappLink("");
+  renderCreditWorkbench();
   renderRecommendations(null);
   renderReferences("");
   renderSerasaEmpty();
+  renderSerasaPremiumEmpty();
   renderPartners(null);
   setExportEnabled(false);
-  setTrafficState("idle", "Pronto para consultar", "Informe um CNPJ ou selecione um cliente do GEST para iniciar a análise.");
+  setTrafficState("idle", "Pronto para consultar", "Informe um CNPJ, CPF ou selecione um cliente do GEST para iniciar a análise.");
   showStatus("Tela atual limpa. O histórico foi preservado.", "success");
   renderDashboard();
 }
 
 function setExportEnabled(isEnabled) {
   copySummaryButton.disabled = !isEnabled;
-  exportCsvButton.disabled = !isEnabled;
+  exportCsvButton.disabled = !isEnabled || !lastPayload;
   exportPdfButton.disabled = !isEnabled;
   printReportButton.disabled = !isEnabled;
   summaryPrintButton.disabled = !isEnabled && !lastCreditAnalysis;
@@ -857,6 +1874,16 @@ function scrollToPanel(panel) {
 function showStatus(message, type) {
   statusBox.textContent = message;
   statusBox.dataset.type = type;
+  if (globalFeedback && globalFeedbackTitle && globalFeedbackMessage) {
+    globalFeedback.hidden = false;
+    globalFeedback.dataset.type = type || "idle";
+    globalFeedbackTitle.textContent =
+      type === "error" ? "Atenção"
+        : type === "success" ? "Concluído"
+          : type === "loading" ? "Processando"
+            : "Atualização";
+    globalFeedbackMessage.textContent = message;
+  }
 }
 
 function renderResult(payload) {
@@ -901,6 +1928,73 @@ function renderResult(payload) {
     ${renderInternalHistoryCard(lastInternalHistory)}
     ${renderSocios(socios)}
     ${renderSecondaryActivities(cnaes)}
+  `;
+}
+
+function updateBureauAuthVisibility() {
+  const mode = bureauAuthMode?.value || "oauth";
+  bureauScopedFields.forEach((field) => {
+    field.classList.toggle("is-hidden", (field.dataset.authScope || "") !== mode);
+  });
+}
+
+if (bureauAuthMode) {
+  bureauAuthMode.addEventListener("change", () => {
+    updateBureauAuthVisibility();
+    renderSerasaWizard();
+    setSerasaPremiumReadyState();
+  });
+}
+
+function renderCreditDocumentResult(data, isMock) {
+  const documentLabel = formatDocument(data.document);
+  const title = data.document_type === "CPF" ? lastCreditSubjectName || "Titular do CPF" : lastCreditSubjectName || "Documento analisado";
+  resultBox.innerHTML = `
+    <div class="summary credit-document-summary">
+      <div class="summary-meta">
+        <span class="pill">${escapeHtml(data.document_type || "Documento")}</span>
+        <span class="source-pill">${escapeHtml(data.provider || "Provedor")}</span>
+        ${isMock ? `<span class="source-pill warning-pill">Mock/Sandbox</span>` : ""}
+      </div>
+      <h2>${escapeHtml(title)}</h2>
+      <p>${escapeHtml(documentLabel)}</p>
+      ${isMock ? `<strong class="city-highlight">Sandbox não valida nome real do CPF</strong>` : ""}
+    </div>
+    <dl class="details">
+      ${row("Documento", documentLabel)}
+      ${row("Tipo", data.document_type)}
+      ${row("Nome informado", title)}
+      ${row("Score Serasa", data.score_serasa)}
+      ${row("Score final", data.score_final)}
+      ${row("Risco", data.risk_label)}
+      ${row("Decisão", data.decision)}
+      ${row("Limite sugerido", formatMoney(data.recommended_limit))}
+      ${row("Prob. inadimplência", `${data.probabilidade_inadimplencia}%`)}
+      ${row("Restrições", data.restricoes_financeiras)}
+      ${row("Protestos", data.protestos)}
+      ${row("Dívidas vencidas", data.dividas_vencidas)}
+      ${row("Pendências comerciais", data.pendencias_comerciais)}
+      ${row("Ações judiciais", data.acoes_judiciais)}
+      ${row("Situação cadastral", data.situacao_cadastral)}
+      ${row("Provider", data.provider)}
+    </dl>
+    <section class="internal-history-card ${escapeHtml(data.risk_level || "moderado")}">
+      <div class="internal-history-head">
+        <div>
+          <span>Análise de crédito CPF</span>
+          <h3>${escapeHtml(data.risk_label || "Risco calculado")}</h3>
+          <p>${escapeHtml(data.recommendation || "Revise os indicadores antes da decisão comercial.")}</p>
+        </div>
+        <div class="internal-score" style="--score:${Math.max(0, Math.min(100, Number(data.score_final || data.score_serasa || 0) / 10))}">
+          <strong>${escapeHtml(data.score_final || data.score_serasa || "-")}</strong>
+          <small>score</small>
+        </div>
+      </div>
+      <div class="internal-opinion">
+        <strong>Motivos</strong>
+        <ul>${(data.reasons || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("") || "<li>Nenhum motivo detalhado retornado.</li>"}</ul>
+      </div>
+    </section>
   `;
 }
 
@@ -990,6 +2084,102 @@ function formatFrequency(days) {
   return `A cada ${months.toFixed(months >= 10 ? 0 : 1)} mês(es)`;
 }
 
+function renderCreditWorkbench() {
+  if (!creditWorkbench || !creditWorkbenchStatus) {
+    return;
+  }
+
+  const dados = lastPayload?.dados || {};
+  const hasPayload = Boolean(lastPayload);
+  const hasCredit = Boolean(lastCreditAnalysis);
+  const internal = lastInternalHistory?.cliente_cadastrado ? lastInternalHistory : null;
+  const analysis = hasPayload ? analyzeCredit(lastPayload) : null;
+  const title = dados.razao_social || dados.nome_fantasia || lastCreditSubjectName || "Nenhum documento carregado";
+  const documentLine = hasPayload
+    ? (lastPayload.cnpj_formatado || formatCnpj(dados.cnpj || ""))
+    : hasCredit
+      ? formatDocument(lastCreditAnalysis.document)
+      : "";
+  const cityUf = [dados.municipio, dados.uf].filter(Boolean).join(" - ");
+  const approval = hasCredit ? approvalLevel(lastCreditAnalysis) : { label: analysis?.label || "Aguardando análise", score: 0 };
+  const bureauStage = hasCredit
+    ? `${lastCreditAnalysis.provider} · ${lastCreditAnalysis.risk_label}`
+    : hasPayload
+      ? "Pronto para rodar bureau"
+      : "Aguardando documento";
+  const historyStage = internal
+    ? `${internal.cliente?.codigo || ""} · score ${internal.indicadores?.score_interno ?? "-"}`
+    : hasPayload
+      ? (lastInternalHistory?.mensagem || "Verificando histórico interno")
+      : "Sem cliente selecionado";
+
+  if (!hasPayload && !hasCredit) {
+    creditWorkbenchStatus.textContent = "Preparado";
+    creditWorkbenchStatus.dataset.level = "watch";
+    creditWorkbench.innerHTML = `
+      <article class="credit-workbench-hero">
+        <span>Fluxo recomendado</span>
+        <h3>Consulta, análise e documentação no mesmo eixo</h3>
+        <p>Use <strong>Consulta CPF/CNPJ</strong> para localizar o documento, <strong>Clientes GEST</strong> para buscar na carteira, <strong>Análise de crédito</strong> para interpretar o caso e <strong>Resumo</strong> para imprimir ou compartilhar.</p>
+      </article>
+      <div class="credit-workbench-grid">
+        ${workbenchCard("1. Cadastro base", "BrasilAPI, Minha Receita e dados públicos", "Consulte CNPJ ou CPF para abrir a ficha principal.")}
+        ${workbenchCard("2. Histórico interno", "GEST, duplicatas, compras e pagamentos", "Quando o cliente existir no CADCLI, os indicadores aparecem aqui automaticamente.")}
+        ${workbenchCard("3. Bureau", "Serasa, Boa Vista ou Quod", "A aba Crédito Serasa executa o bureau protegido pelo backend.")}
+        ${workbenchCard("4. Documento final", "Resumo A4, WhatsApp e armazenamento", "A aba Resumo consolida a documentação pronta para anexar.")}
+      </div>
+    `;
+    return;
+  }
+
+  creditWorkbenchStatus.textContent = hasCredit ? "Análise ativa" : "Cadastro carregado";
+  creditWorkbenchStatus.dataset.level = hasCredit ? (lastCreditAnalysis.risk_level === "baixo" ? "good" : lastCreditAnalysis.risk_level === "medio" ? "watch" : "risk") : "good";
+  creditWorkbench.innerHTML = `
+    <article class="credit-workbench-hero">
+      <span>Documento atual</span>
+      <h3>${escapeHtml(title)}</h3>
+      <p>${escapeHtml(documentLine)}${cityUf ? ` · ${escapeHtml(cityUf)}` : ""}</p>
+      <div class="credit-workbench-badges">
+        ${hasPayload ? `<span class="source-pill">${escapeHtml(lastPayload.fonte || dados.fonte_consulta || "Cadastro público")}</span>` : ""}
+        ${hasCredit ? `<span class="pill">${escapeHtml(lastCreditAnalysis.risk_label)} · ${escapeHtml(lastCreditAnalysis.decision)}</span>` : `<span class="source-pill">Sem bureau executado</span>`}
+        ${internal ? `<span class="source-pill">GEST ${escapeHtml(internal.parecer?.nivel || "interno")}</span>` : ""}
+      </div>
+    </article>
+    <div class="credit-workbench-grid">
+      ${workbenchMetric("Cadastro", hasPayload ? "Carregado" : "Pendente", hasPayload ? `${companyAgeYears(dados.data_inicio_atividade)} ano(s) · ${formatCnae(dados) || "CNAE não informado"}` : "Consulte um documento para carregar os dados base.")}
+      ${workbenchMetric("Histórico interno", internal ? "Disponível" : "Pendente", historyStage)}
+      ${workbenchMetric("Bureau", hasCredit ? "Executado" : "A executar", bureauStage)}
+      ${workbenchMetric("Resumo A4", hasPayload || hasCredit ? "Pronto" : "Pendente", hasCredit ? approval.label : "Ficha pronta após a consulta cadastral.")}
+    </div>
+    <div class="credit-workbench-grid credit-workbench-grid--analysis">
+      ${workbenchMetric("Score final", hasCredit ? lastCreditAnalysis.score_final : "-", hasCredit ? `Provider ${lastCreditAnalysis.provider}` : "Será preenchido após executar o bureau.")}
+      ${workbenchMetric("Limite sugerido", hasCredit ? formatMoney(lastCreditAnalysis.recommended_limit) : "-", hasCredit ? lastCreditAnalysis.recommendation : "Use o bureau para gerar limite e recomendação.")}
+      ${workbenchMetric("Risco interno", internal ? `${internal.indicadores?.score_interno ?? "-"} pts` : "-", internal ? internal.parecer?.opiniao || "" : "Disponível apenas para clientes cadastrados no GEST.")}
+      ${workbenchMetric("Ação sugerida", hasCredit ? approval.label : (analysis?.label || "Aguardando análise"), hasCredit ? (lastCreditAnalysis.reasons || []).slice(0, 1).join(" ") : (analysis?.items?.[0]?.text || "Após consultar, o app cruza cadastro, histórico e bureau."))}
+    </div>
+  `;
+}
+
+function workbenchCard(title, subtitle, text) {
+  return `
+    <article class="workbench-card">
+      <span>${escapeHtml(subtitle)}</span>
+      <h3>${escapeHtml(title)}</h3>
+      <p>${escapeHtml(text)}</p>
+    </article>
+  `;
+}
+
+function workbenchMetric(label, value, detail) {
+  return `
+    <article class="workbench-metric">
+      <span>${escapeHtml(label)}</span>
+      <strong>${escapeHtml(String(value || "-"))}</strong>
+      <p>${escapeHtml(detail || "")}</p>
+    </article>
+  `;
+}
+
 function renderRecommendations(payload) {
   if (!payload) {
     recommendationScore.textContent = "Aguardando consulta";
@@ -1016,12 +2206,17 @@ function renderRecommendations(payload) {
 
 function renderDashboard() {
   const last = lastPayload?.dados || {};
-  const lastName = last.razao_social || last.nome_fantasia || "Nenhuma";
+  const lastName = last.razao_social || last.nome_fantasia || lastCreditSubjectName || "Nenhuma";
   const creditLabel = lastCreditAnalysis ? lastCreditAnalysis.risk_label : "Sem análise";
   const creditLimit = lastCreditAnalysis ? formatMoney(lastCreditAnalysis.recommended_limit) : "R$ 0,00";
   const cnpjCreditCount = creditHistory.filter((item) => item.documentType === "CNPJ").length;
   const cpfCreditCount = creditHistory.filter((item) => item.documentType === "CPF").length;
   const totalSearches = history.length + creditHistory.length;
+  const totalCredit = creditHistory.length;
+  const riskStats = buildRiskStats(creditHistory);
+  const approvalStats = buildApprovalStats(creditHistory);
+  const recentItems = buildRecentDashboardItems();
+
   dashboardBox.innerHTML = `
     <article>
       <span>Pesquisas totais</span>
@@ -1031,7 +2226,7 @@ function renderDashboard() {
     <article>
       <span>Última empresa</span>
       <strong>${escapeHtml(lastName)}</strong>
-      <p>${escapeHtml([last.municipio, last.uf].filter(Boolean).join(" - ") || "Aguardando consulta cadastral.")}</p>
+      <p>${escapeHtml([last.municipio, last.uf].filter(Boolean).join(" - ") || (lastCreditAnalysis ? formatDocument(lastCreditAnalysis.document) : "Aguardando consulta cadastral."))}</p>
     </article>
     <article>
       <span>Risco consolidado</span>
@@ -1039,24 +2234,184 @@ function renderDashboard() {
       <p>Limite sugerido: ${escapeHtml(creditLimit)}.</p>
     </article>
     <article class="dashboard-chart-card">
-      <span>Gráfico de consultas</span>
+      <span>Buscas por tipo</span>
       ${renderSearchChart(history.length, cnpjCreditCount, cpfCreditCount)}
     </article>
     <article>
-      <span>Referências</span>
-      <strong>${lastPayload ? (references[onlyDigits(lastPayload.cnpj_formatado || last.cnpj || "")] || []).length : 0}</strong>
-      <p>Referências comerciais anexadas à ficha do cliente.</p>
+      <span>Faixas de risco</span>
+      <strong>${totalCredit || 0}</strong>
+      <p>${riskStats.summary}</p>
     </article>
     <article>
-      <span>Sócios</span>
-      <strong>${Array.isArray(last.qsa) ? last.qsa.length : 0}</strong>
-      <p>CPFs de sócios podem ser analisados manualmente quando autorizados.</p>
+      <span>Aprovação sugerida</span>
+      <strong>${approvalStats.approvarPercent}%</strong>
+      <p>${approvalStats.summary}</p>
     </article>
-    <article>
-      <span>Admin</span>
-      <strong>${adminUsers.length}</strong>
-      <p>Usuários cadastrados na matriz local de acessos.</p>
-    </article>
+  `;
+
+  if (dashboardStrip) {
+    dashboardStrip.innerHTML = `
+      <article class="dashboard-strip-card">
+        <span>Cenário da banca</span>
+        <strong>${totalCredit ? `${riskStats.baixoPercent}% baixo risco` : "Sem carteira analisada"}</strong>
+        <p>${totalCredit ? `A carteira atual concentra ${riskStats.altoCriticoPercent}% em risco alto/crítico e ${approvalStats.revisaoPercent}% em revisão ou garantia.` : "Execute análises de crédito para formar a visão consolidada da mesa."}</p>
+      </article>
+      <article class="dashboard-strip-card">
+        <span>Distribuição de risco</span>
+        ${renderDashboardRiskBars(riskStats)}
+      </article>
+      <article class="dashboard-strip-card">
+        <span>Leitura de aprovação</span>
+        ${renderDashboardApprovalBars(approvalStats)}
+      </article>
+    `;
+  }
+
+  if (dashboardRecent) {
+    dashboardRecent.innerHTML = `
+      <div class="dashboard-recent-header">
+        <h3>Últimos clientes e documentos analisados</h3>
+        <p>Leitura rápida para retomada das análises e acompanhamento da carteira.</p>
+      </div>
+      <div class="dashboard-recent-list">
+        ${recentItems.length ? recentItems.map((item) => `
+          <article class="recent-dashboard-card">
+            <div>
+              <span>${escapeHtml(item.kind)}</span>
+              <strong>${escapeHtml(item.title)}</strong>
+              <p>${escapeHtml(item.subtitle)}</p>
+            </div>
+            <div class="recent-dashboard-meta">
+              <small>${escapeHtml(item.status)}</small>
+              <small>${escapeHtml(item.time)}</small>
+            </div>
+          </article>
+        `).join("") : `
+          <article class="recent-dashboard-card muted-card">
+            <div>
+              <span>Sem movimentação</span>
+              <strong>Nenhuma análise recente</strong>
+              <p>As últimas consultas de CNPJ e CPF aparecerão aqui com o resumo operacional.</p>
+            </div>
+          </article>
+        `}
+      </div>
+    `;
+  }
+}
+
+function buildRiskStats(items) {
+  const stats = { baixo: 0, medio: 0, alto: 0, critico: 0, total: items.length };
+  items.forEach((item) => {
+    const key = item?.data?.risk_level || "";
+    if (key in stats) {
+      stats[key] += 1;
+    }
+  });
+  const total = Math.max(1, stats.total);
+  stats.baixoPercent = Math.round((stats.baixo / total) * 100);
+  stats.medioPercent = Math.round((stats.medio / total) * 100);
+  stats.altoPercent = Math.round((stats.alto / total) * 100);
+  stats.criticoPercent = Math.round((stats.critico / total) * 100);
+  stats.altoCriticoPercent = Math.round(((stats.alto + stats.critico) / total) * 100);
+  stats.summary = stats.total
+    ? `${stats.baixo} baixo · ${stats.medio} médio · ${stats.alto} alto · ${stats.critico} crítico`
+    : "Sem análises de crédito registradas";
+  return stats;
+}
+
+function buildApprovalStats(items) {
+  const stats = {
+    aprovar: 0,
+    garantia: 0,
+    revisar: 0,
+    negar: 0,
+    total: items.length,
+  };
+  items.forEach((item) => {
+    const decision = normalizeText(item?.data?.decision || "");
+    if (decision.includes("garantia")) {
+      stats.garantia += 1;
+    } else if (decision.includes("negar")) {
+      stats.negar += 1;
+    } else if (decision.includes("revis")) {
+      stats.revisar += 1;
+    } else if (decision.includes("aprovar")) {
+      stats.aprovar += 1;
+    }
+  });
+  const total = Math.max(1, stats.total);
+  stats.aprovarPercent = Math.round((stats.aprovar / total) * 100);
+  stats.garantiaPercent = Math.round((stats.garantia / total) * 100);
+  stats.revisaoPercent = Math.round(((stats.garantia + stats.revisar) / total) * 100);
+  stats.negarPercent = Math.round((stats.negar / total) * 100);
+  stats.summary = stats.total
+    ? `${stats.aprovar} aprovar · ${stats.garantia} com garantia · ${stats.revisar} revisar · ${stats.negar} negar`
+    : "Sem decisões assistidas registradas";
+  return stats;
+}
+
+function buildRecentDashboardItems() {
+  const recentCnpj = history.map((item) => ({
+    kind: "CNPJ cadastral",
+    title: item.razaoSocial || item.nomeFantasia || item.cnpj,
+    subtitle: [item.cnpj, item.cidade].filter(Boolean).join(" · "),
+    status: item.fonte || "Cadastro público",
+    time: formatDateTime(item.savedAt || item.timestamp || item.createdAt || ""),
+    order: new Date(item.savedAt || item.timestamp || item.createdAt || 0).getTime(),
+  }));
+
+  const recentCredit = creditHistory.map((item) => ({
+    kind: item.documentType === "CPF" ? "CPF crédito" : "CNPJ crédito",
+    title: item.name || formatDocument(item.document),
+    subtitle: [formatDocument(item.document), item.data?.risk_label, formatMoney(item.data?.recommended_limit)].filter(Boolean).join(" · "),
+    status: item.data?.decision || item.data?.provider || "Crédito",
+    time: formatDateTime(item.createdAt || ""),
+    order: new Date(item.createdAt || 0).getTime(),
+  }));
+
+  return [...recentCredit, ...recentCnpj]
+    .sort((a, b) => b.order - a.order)
+    .slice(0, 6);
+}
+
+function renderDashboardRiskBars(stats) {
+  const bars = [
+    ["Baixo", stats.baixoPercent, "#11795f"],
+    ["Médio", stats.medioPercent, "#d39400"],
+    ["Alto", stats.altoPercent, "#e67e22"],
+    ["Crítico", stats.criticoPercent, "#b42318"],
+  ];
+  return `
+    <div class="mini-chart">
+      ${bars.map(([label, value, color]) => `
+        <div class="mini-chart-row">
+          <small>${escapeHtml(label)}</small>
+          <div><span style="width:${Math.max(value, value ? 8 : 0)}%; background:${color}"></span></div>
+          <strong>${value}%</strong>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderDashboardApprovalBars(stats) {
+  const bars = [
+    ["Aprovar", stats.aprovarPercent, "#11795f"],
+    ["Garantia", stats.garantiaPercent, "#0b84ff"],
+    ["Revisar", Math.max(0, stats.revisaoPercent - stats.garantiaPercent), "#d39400"],
+    ["Negar", stats.negarPercent, "#b42318"],
+  ];
+  return `
+    <div class="mini-chart">
+      ${bars.map(([label, value, color]) => `
+        <div class="mini-chart-row">
+          <small>${escapeHtml(label)}</small>
+          <div><span style="width:${Math.max(value, value ? 8 : 0)}%; background:${color}"></span></div>
+          <strong>${value}%</strong>
+        </div>
+      `).join("")}
+    </div>
   `;
 }
 
@@ -1087,11 +2442,36 @@ function renderSerasaEmpty() {
   serasaStatus.textContent = "Mock/Sandbox";
   serasaStatus.dataset.level = "watch";
   serasaBoard.innerHTML = `
-    <article>
-      <h3>Integração protegida</h3>
-      <p>A Serasa é chamada somente pelo backend. Enquanto não houver credenciais reais, o app usa mock/sandbox com auditoria local.</p>
+    <article class="credit-hero-card decision-card-soft">
+      <span>Crédito forte</span>
+      <h3>Nenhum documento preparado</h3>
+      <p>Consulte um CNPJ ou informe um CPF para abrir a análise de bureau. O módulo usa backend protegido e pode operar em mock, Serasa, Boa Vista ou Quod.</p>
+      <strong>Fluxo sugerido: Consulta CPF/CNPJ → Resultado → Crédito Serasa → Resumo A4</strong>
     </article>
   `;
+  renderCreditWorkbench();
+}
+
+function renderSerasaPremiumEmpty() {
+  lastSerasaPremiumAnalysis = null;
+  if (serasaPremiumDocument) serasaPremiumDocument.value = "";
+  if (serasaPremiumPassword) serasaPremiumPassword.value = "";
+  if (serasaPremiumPrint) serasaPremiumPrint.disabled = true;
+  if (serasaPremiumStatus) {
+    serasaPremiumStatus.textContent = "Protegido";
+    serasaPremiumStatus.dataset.level = "watch";
+  }
+  if (serasaPremiumBoard) {
+    serasaPremiumBoard.innerHTML = `
+      <article class="credit-hero-card decision-card-soft">
+        <span>Serasa Premium</span>
+        <h3>Serviços pagos com validação</h3>
+        <p>Use esta área para SCC Check e outros produtos pagos, com usuário autorizado e senha de validação antes de consultar.</p>
+        <strong>Fluxo sugerido: Admin → credenciais Serasa → permissão do usuário → senha de validação → consulta premium</strong>
+      </article>
+    `;
+  }
+  setSerasaPremiumReadyState();
 }
 
 function renderPartners(payload) {
@@ -1113,17 +2493,58 @@ function renderPartners(payload) {
 function renderSerasaReady(payload) {
   lastCreditAnalysis = null;
   const dados = payload.dados || {};
+  const cityUf = [dados.municipio, dados.uf].filter(Boolean).join(" - ") || "Cidade/UF não informadas";
+  const porte = dados.porte || "Porte não informado";
+  const status = (dados.descricao_situacao_cadastral || dados.situacao_cadastral || "Situação não informada").toUpperCase();
+  const abertura = formatDate(dados.data_inicio_atividade || dados.data_situacao_cadastral || "");
+  const capital = formatMoney(dados.capital_social || 0);
+  const qsaTotal = Array.isArray(dados.qsa) ? dados.qsa.length : 0;
+  const cnae = [dados.cnae_fiscal, dados.cnae_fiscal_descricao].filter(Boolean).join(" - ") || "CNAE principal não informado";
+  const internalFlag = lastInternalHistory?.cliente_cadastrado ? "Cliente com histórico GEST disponível" : "Sem histórico interno carregado";
   serasaStatus.textContent = "Pronto";
   serasaStatus.dataset.level = "good";
+  serasaPrint.disabled = false;
   serasaBoard.innerHTML = `
-    <article class="credit-hero-card">
+    <article class="credit-hero-card credit-ready-card">
       <span>Documento carregado</span>
       <h3>${escapeHtml(dados.razao_social || "Empresa selecionada")}</h3>
-      <p>Execute a análise forte para combinar score Serasa, restrições, protestos, dívidas, situação cadastral e regras internas.</p>
+      <strong>${escapeHtml(payload.cnpj_formatado || formatCnpj(dados.cnpj || ""))}</strong>
+      <p>O cadastro já está pronto para impressão A4. Execute a análise forte quando quiser somar bureau, restrições, score e decisão assistida.</p>
     </article>
-    ${premiumBlock("Score de risco completo", "Score Serasa, score final combinado e probabilidade de inadimplência.")}
-    ${premiumBlock("Protestos e dívidas", "Resumo de restrições financeiras, protestos, dívidas vencidas e pendências comerciais.")}
-    ${premiumBlock("Análise com IA", "Parecer comercial, limite sugerido, ações, cuidados e estratégia de liberação.")}
+    <article class="credit-score-card">
+      <span>Status cadastral</span>
+      <strong>${escapeHtml(status)}</strong>
+      <small>${escapeHtml(cityUf)}</small>
+    </article>
+    <article class="credit-score-card">
+      <span>Abertura</span>
+      <strong>${escapeHtml(abertura || "Não informada")}</strong>
+      <small>${escapeHtml(porte)}</small>
+    </article>
+    <article class="credit-score-card">
+      <span>Capital social</span>
+      <strong>${escapeHtml(capital)}</strong>
+      <small>${escapeHtml(internalFlag)}</small>
+    </article>
+    <dl class="serasa-details">
+      ${row("CNPJ", payload.cnpj_formatado || formatCnpj(dados.cnpj || ""))}
+      ${row("Razão social", dados.razao_social || "-")}
+      ${row("Cidade / UF", cityUf)}
+      ${row("Porte", porte)}
+      ${row("Capital social", capital)}
+      ${row("CNAE principal", cnae)}
+      ${row("Sócios / QSA", qsaTotal || 0)}
+      ${row("Resumo A4", "Disponível agora")}
+      ${row("Crédito forte", "Execute a análise para bureau e decisão")}
+    </dl>
+    <article class="decision-card decision-card-soft">
+      <h3>Próximo passo sugerido</h3>
+      <ul>
+        <li>Use "Imprimir resumo A4" para anexar a ficha cadastral imediatamente.</li>
+        <li>Use "Executar análise" quando precisar score, protestos, dívidas e limite sugerido.</li>
+        <li>Se houver histórico no GEST, o resumo já combinará os dados internos na impressão.</li>
+      </ul>
+    </article>
   `;
 }
 
@@ -1131,10 +2552,16 @@ function renderSerasaResult(data, isMock) {
   serasaStatus.textContent = isMock ? "Mock/Sandbox" : "Serasa";
   serasaStatus.dataset.level = data.risk_level === "baixo" ? "good" : data.risk_level === "medio" ? "watch" : "risk";
   const isCpf = data.document_type === "CPF";
+  const companyName = lastPayload?.dados?.razao_social || lastPayload?.dados?.nome_fantasia || "";
+  const headline = isCpf
+    ? (lastCreditSubjectName && lastCreditSubjectName !== "Titular do CPF" ? lastCreditSubjectName : "CPF analisado")
+    : companyName || formatDocument(data.document);
   serasaBoard.innerHTML = `
     <article class="credit-hero-card ${isMock ? "mock-warning-card" : ""}">
       <span>${escapeHtml(data.document_type || "Documento")} analisado</span>
-      <h3>${escapeHtml(formatDocument(data.document))}</h3>
+      <h3>${escapeHtml(headline)}</h3>
+      <strong>${escapeHtml(formatDocument(data.document))}</strong>
+      ${!isCpf && companyName ? `<small>${escapeHtml([lastPayload?.dados?.municipio, lastPayload?.dados?.uf].filter(Boolean).join(" - ") || "Cadastro público carregado")}</small>` : ""}
       <p>${isMock ? "Modo sandbox/mock: este retorno simula risco e score, mas não identifica nome real do CPF. Para validação nominal, conecte credenciais oficiais da Serasa ou outro provedor autorizado." : "Consulta retornada pelo provedor configurado no backend."}</p>
     </article>
     <article class="credit-score-card ${escapeHtml(data.risk_level)}">
@@ -1162,6 +2589,7 @@ function renderSerasaResult(data, isMock) {
       ${row("Situação cadastral", data.situacao_cadastral)}
       ${row("Tipo de documento", data.document_type)}
       ${row("Documento", formatDocument(data.document))}
+      ${isCpf ? row("Nome informado", lastCreditSubjectName || "-") : ""}
       ${row("Provider", data.provider)}
     </dl>
     <article class="decision-card">
@@ -1171,6 +2599,7 @@ function renderSerasaResult(data, isMock) {
       </ul>
     </article>
   `;
+  renderCreditWorkbench();
 }
 
 function renderSerasaError(message) {
@@ -1183,6 +2612,65 @@ function renderSerasaError(message) {
       <p>${escapeHtml(message)} A análise atual do app permanece disponível e a falha foi registrada no backend.</p>
     </article>
   `;
+  renderCreditWorkbench();
+}
+
+function renderSerasaPremiumResult(data, isMock, product) {
+  serasaPremiumStatus.textContent = isMock ? "Mock/Sandbox" : "Premium";
+  serasaPremiumStatus.dataset.level = data.risk_level === "baixo" ? "good" : data.risk_level === "medio" ? "watch" : "risk";
+  const subjectName = lastCreditSubjectName || serasaPremiumSubjectName?.value?.trim() || formatDocument(data.document || "");
+  serasaPremiumBoard.innerHTML = `
+      <article class="credit-result-board premium-result-board">
+        <div class="credit-result-header">
+          <div>
+            <strong>${escapeHtml(product || "Serviço premium")}</strong>
+            <h3>${escapeHtml(subjectName)}</h3>
+            <small>${escapeHtml(formatDocument(data.document || ""))}</small>
+            <p>${isMock ? "Modo sandbox/mock ativo. Para produção, mantenha o layout do produto contratado configurado no backend." : "Consulta retornada pelo serviço pago configurado no backend."}</p>
+          </div>
+          <div class="credit-score-card">
+            <span>Score premium</span>
+            <strong>${escapeHtml(data.score_serasa)}</strong>
+        </div>
+      </div>
+      <dl class="serasa-details">
+        ${row("Produto", product || "SCC_CHECK")}
+        ${row("Provider", data.provider)}
+        ${row("Risco final", data.risk_label)}
+        ${row("Decisão", data.decision)}
+        ${row("Limite sugerido", formatMoney(data.recommended_limit || 0))}
+        ${row("Restrições", data.restricoes_financeiras)}
+        ${row("Protestos", data.protestos)}
+        ${row("Dívidas", data.dividas_vencidas)}
+        ${row("Pendências", data.pendencias_comerciais)}
+        ${row("Ações judiciais", data.acoes_judiciais)}
+      </dl>
+      <div class="decision-box">
+        <strong>Motivos da decisão</strong>
+        <ul>${(data.reasons || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+      </div>
+    </article>
+  `;
+  showStatus(
+    isMock
+      ? "Serviço premium executado em modo sandbox/mock. Nenhum crédito real da Serasa foi consumido."
+      : "Serviço premium executado com retorno do provedor configurado.",
+    "success",
+  );
+}
+
+function renderSerasaPremiumError(message) {
+  lastSerasaPremiumAnalysis = null;
+  serasaPremiumStatus.textContent = "Protegido";
+  serasaPremiumStatus.dataset.level = "risk";
+  serasaPremiumBoard.innerHTML = `
+    <article class="credit-error">
+      <h3>Serviço pago indisponível</h3>
+      <p>${escapeHtml(message)}</p>
+      <strong>Confira permissão do usuário, senha de validação e o layout do produto SCC Check contratado.</strong>
+    </article>
+  `;
+  showStatus(message, "error");
 }
 
 function renderSummaryPreview() {
@@ -1217,18 +2705,22 @@ function renderSummaryPreview() {
   const approval = lastCreditAnalysis ? approvalLevel(lastCreditAnalysis) : { label: analysis?.label || "Aguardando crédito", score: 45 };
   const internal = lastInternalHistory?.cliente_cadastrado ? lastInternalHistory : null;
 
+  const title = dados.razao_social || dados.nome_fantasia || lastCreditSubjectName || "Documento analisado";
+  const documentLine = lastPayload?.cnpj_formatado || formatDocument(lastCreditAnalysis?.document || "");
   summaryPreviewBox.innerHTML = `
     <article class="print-preview-card">
       <header>
         <img src="/assets/logo-scriptt.png" alt="Scriptt">
         <div>
           <span>Relatório executivo</span>
-          <h3>${escapeHtml(dados.razao_social || dados.nome_fantasia || "Documento analisado")}</h3>
-          <p>${escapeHtml(lastPayload?.cnpj_formatado || formatDocument(lastCreditAnalysis?.document || ""))}${cityUf ? ` · ${escapeHtml(cityUf)}` : ""}</p>
+          <h3>${escapeHtml(title)}</h3>
+          <p>${escapeHtml(documentLine)}${cityUf ? ` · ${escapeHtml(cityUf)}` : ""}</p>
         </div>
       </header>
       <div class="preview-grid">
         ${previewCell("Situação", dados.descricao_situacao_cadastral || lastCreditAnalysis?.situacao_cadastral || "-")}
+        ${previewCell("Tipo", lastPayload ? "CNPJ" : lastCreditAnalysis?.document_type || "-")}
+        ${!lastPayload ? previewCell("Nome informado", lastCreditSubjectName || "-") : ""}
         ${previewCell("Score final", lastCreditAnalysis?.score_final || "-")}
         ${previewCell("Risco", lastCreditAnalysis?.risk_label || analysis?.label || "-")}
         ${previewCell("Limite sugerido", lastCreditAnalysis ? formatMoney(lastCreditAnalysis.recommended_limit) : "-")}
@@ -1375,7 +2867,11 @@ function renderAdminPanel(payload) {
         ${row("Logs LGPD", stats.credit_audit_logs || 0)}
         ${row("Banco local", stats.database || "")}
         ${row("Decisão automática", payload.feature_flags?.decisao_automatica ? "Ligada" : "Desligada")}
-        ${row("Modo Serasa", payload.feature_flags?.serasa_mock ? "Mock/Sandbox" : "Produção")}
+        ${row("Bureau ativo", (payload.feature_flags?.bureau_provider || "mock").toUpperCase())}
+        ${row("Modo do bureau", payload.feature_flags?.bureau_mock ? "Mock/Sandbox" : "Produção")}
+        ${row("Serasa Premium", payload.feature_flags?.serasa_premium_enabled ? "Habilitado" : "Desligado")}
+        ${row("SCC Check", payload.feature_flags?.allow_scc_check ? "Habilitado" : "Desligado")}
+        ${row("Senha de validação", payload.feature_flags?.has_validation_password ? "Configurada" : "Pendente")}
         ${row("Limite carteira", payload.feature_flags?.portfolio_limit || 0)}
         ${row("Armazenamento", storageModeLabel(adminSettings.storageMode))}
         ${row("Pasta padrão", adminSettings.storagePath || "Não configurada")}
@@ -1383,9 +2879,111 @@ function renderAdminPanel(payload) {
       </dl>
     </article>
     <article>
+      <h3>Checklist Serasa</h3>
+      ${renderSerasaChecklist()}
+    </article>
+    <article>
       <h3>Usuários cadastrados</h3>
       ${renderAdminUsers()}
     </article>
+  `;
+}
+
+function checklistItem(label, ok, detail) {
+  return `
+    <li class="${ok ? "ok" : "pending"}">
+      <strong>${escapeHtml(label)}</strong>
+      <span>${escapeHtml(detail)}</span>
+    </li>
+  `;
+}
+
+function renderSerasaChecklist() {
+  const provider = bureauSettings.provider || "mock";
+  const environment = bureauSettings.environment || "sandbox";
+  const serasa = bureauSettings.providers?.serasa || {};
+  const features = bureauSettings.features || {};
+  const security = bureauSettings.security || {};
+  const sandboxItems = [
+    {
+      label: "Área Serasa Premium",
+      ok: Boolean(features.serasa_premium_enabled),
+      detail: features.serasa_premium_enabled ? "Habilitada para uso no app." : "Ainda não habilitada no Admin.",
+    },
+    {
+      label: "SCC Check",
+      ok: Boolean(features.allow_scc_check),
+      detail: features.allow_scc_check ? "Produto liberado para os usuários autorizados." : "Produto ainda desabilitado.",
+    },
+    {
+      label: "Senha premium",
+      ok: Boolean(security.has_validation_password),
+      detail: security.has_validation_password ? "Senha de validação já cadastrada." : "Defina a senha de validação premium.",
+    },
+    {
+      label: "Modo atual",
+      ok: environment === "sandbox",
+      detail: environment === "sandbox" ? "Seguro para testes sem consumo real." : "Hoje o ambiente está marcado como produção.",
+    },
+  ];
+  const productionItems = [
+    {
+      label: "Provider ativo",
+      ok: provider === "serasa",
+      detail: provider === "serasa" ? "A aplicação está apontada para Serasa." : `Hoje o provider ativo é ${String(provider).toUpperCase()}.`,
+    },
+    {
+      label: "Base URL",
+      ok: Boolean((serasa.base_url || "").trim()),
+      detail: (serasa.base_url || "").trim() ? serasa.base_url : "Informe a URL oficial de homologação/produção da Serasa.",
+    },
+    {
+      label: "Autenticação",
+      ok: Boolean((serasa.auth_mode || "").trim()),
+      detail: (serasa.auth_mode || "").trim() ? `Modo definido: ${serasa.auth_mode}.` : "Escolha OAuth ou logon + senha.",
+    },
+    {
+      label: "Credencial principal",
+      ok: serasa.auth_mode === "oauth"
+        ? Boolean((serasa.client_id || "").trim()) && Boolean(serasa.has_client_secret)
+        : Boolean((serasa.username || "").trim()) && Boolean(serasa.has_password),
+      detail: serasa.auth_mode === "oauth"
+        ? (serasa.has_client_secret ? "Client ID e secret já cadastrados." : "Falta client ID e/ou client secret.")
+        : (serasa.has_password ? "Usuário/logon e senha já cadastrados." : "Falta usuário/logon e/ou senha."),
+    },
+    {
+      label: "Caminho de consulta",
+      ok: Boolean((serasa.consult_path || "").trim()),
+      detail: (serasa.consult_path || "").trim() ? serasa.consult_path : "Informe o caminho técnico do SCC Check/consulta.",
+    },
+    {
+      label: "Produto padrão",
+      ok: Boolean((serasa.product_code || "").trim()),
+      detail: (serasa.product_code || "").trim() ? serasa.product_code : "Informe o código técnico do produto contratado.",
+    },
+  ];
+  const productionReady = productionItems.every((item) => item.ok);
+  return `
+    <div class="serasa-checklist">
+      <div class="checklist-summary ${productionReady ? "ready" : "pending"}">
+        <strong>${productionReady ? "Pronto para produção" : "Pendente para produção"}</strong>
+        <span>${productionReady ? "Os campos mínimos do backend Serasa estão preenchidos." : "Ainda faltam dados técnicos para virar consulta real."}</span>
+      </div>
+      <div class="checklist-columns">
+        <section>
+          <h4>Checklist de sandbox</h4>
+          <ul>
+            ${sandboxItems.map((item) => checklistItem(item.label, item.ok, item.detail)).join("")}
+          </ul>
+        </section>
+        <section>
+          <h4>Checklist de produção</h4>
+          <ul>
+            ${productionItems.map((item) => checklistItem(item.label, item.ok, item.detail)).join("")}
+          </ul>
+        </section>
+      </div>
+    </div>
   `;
 }
 
@@ -1395,13 +2993,14 @@ function renderAdminUsers() {
   }
   return `
     <table>
-      <thead><tr><th>Nome</th><th>Login</th><th>Perfil</th><th>Status</th></tr></thead>
+      <thead><tr><th>Nome</th><th>Login</th><th>Perfil</th><th>Permissões</th><th>Status</th></tr></thead>
       <tbody>
         ${adminUsers.map((user) => `
           <tr>
             <td>${escapeHtml(user.name)}</td>
             <td>${escapeHtml(user.email)}</td>
             <td>${escapeHtml(user.role)}</td>
+            <td>${escapeHtml((user.permissions || defaultPermissionsForRole(user.role)).join(", "))}</td>
             <td>${escapeHtml(user.status)}</td>
           </tr>
         `).join("")}
@@ -1410,22 +3009,69 @@ function renderAdminUsers() {
   `;
 }
 
-function addAdminUser() {
+async function addAdminUser() {
+  clearAdminUserFeedback();
   const user = {
-    id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
     name: adminUserName.value.trim(),
     email: adminUserEmail.value.trim(),
     role: adminUserRole.value,
+    permissions: selectedPermissions(),
     status: adminUserStatus.value,
+    password: adminUserPassword?.value || "",
   };
-  if (!user.name || !user.email) {
+  const passwordConfirm = adminUserPasswordConfirm?.value || "";
+  const existingUser = adminUsers.find((item) => String(item.email || "").trim().toLowerCase() === user.email.toLowerCase());
+  if (!user.name) {
+    setAdminUserFeedback("Informe o nome do usuário para cadastrar.", "error", "Campo obrigatório");
+    adminUserName?.focus();
     return;
   }
-  adminUsers = [user, ...adminUsers.filter((item) => item.email !== user.email)].slice(0, 50);
-  saveAdminUsers();
-  adminForm.reset();
-  loadAdminPanel();
-  renderDashboard();
+  if (!user.email) {
+    setAdminUserFeedback("Informe o e-mail/login do usuário.", "error", "Campo obrigatório");
+    adminUserEmail?.focus();
+    return;
+  }
+  if (!existingUser && !user.password) {
+    setAdminUserFeedback("Informe uma senha inicial para o novo usuário.", "error", "Senha obrigatória");
+    adminUserPassword?.focus();
+    return;
+  }
+  if (user.password && user.password.length < 8) {
+    setAdminUserFeedback("A senha precisa ter pelo menos 8 caracteres.", "error", "Senha inválida");
+    adminUserPassword?.focus();
+    return;
+  }
+  if (user.password && !passwordConfirm) {
+    setAdminUserFeedback("Confirme a senha digitada para continuar.", "error", "Confirmação obrigatória");
+    adminUserPasswordConfirm?.focus();
+    return;
+  }
+  if (user.password && user.password !== passwordConfirm) {
+    setAdminUserFeedback("A confirmação da senha não confere.", "error", "Senhas diferentes");
+    adminUserPasswordConfirm?.focus();
+    return;
+  }
+  try {
+    const response = await fetch("/api/admin/users", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user),
+    });
+    const payload = await response.json();
+    if (!response.ok || !payload.ok) {
+      setAdminUserFeedback(payload.erro || "Não foi possível salvar o usuário.", "error", "Cadastro não realizado");
+      return;
+    }
+    adminUsers = payload.users || [];
+    adminForm.reset();
+    setPermissionInputs(adminUserRole.value || "Analista");
+    loadAdminPanel();
+    renderDashboard();
+    setAdminUserFeedback("Usuário salvo com sucesso. No primeiro acesso ele deverá trocar a senha com confirmação.", "success", "Cadastro concluído");
+    showStatus("Usuário salvo com sucesso.", "success");
+  } catch {
+    setAdminUserFeedback("Falha ao salvar o usuário no backend.", "error", "Erro de comunicação");
+  }
 }
 
 function kpi(label, value) {
@@ -1679,7 +3325,7 @@ function emptyResult() {
   return `
     <div class="empty-state">
       <strong>Nenhuma consulta carregada</strong>
-      <span>Informe um CNPJ valido para ver os dados cadastrais.</span>
+      <span>Informe um CNPJ ou CPF valido para iniciar a analise.</span>
     </div>
   `;
 }
@@ -1977,7 +3623,9 @@ function buildCreditSummary(credit) {
   return [
     "Resumo de análise de crédito",
     "",
+    lastCreditSubjectName ? `Nome informado: ${lastCreditSubjectName}` : "",
     `Documento: ${formatDocument(credit.document)}`,
+    `Tipo: ${credit.document_type || "Documento"}`,
     `Score Serasa: ${credit.score_serasa}`,
     `Score final: ${credit.score_final}`,
     `Risco consolidado: ${credit.risk_label}`,
@@ -2020,9 +3668,12 @@ function updateWhatsappLink(summary) {
 
 function openCreditReport(credit) {
   const dados = lastPayload?.dados || {};
-  const company = dados.razao_social || dados.nome_fantasia || "Documento analisado";
+  const company = dados.razao_social || dados.nome_fantasia || lastCreditSubjectName || "Documento analisado";
   const documentLabel = formatDocument(credit.document || serasaDocument.value);
   const approval = approvalLevel(credit);
+  const internal = lastInternalHistory?.cliente_cadastrado ? lastInternalHistory : null;
+  const guidance = buildDecisionGuidance(credit, internal);
+  const checklist = buildValidationChecklist({ dados }, credit, internal, []);
   const reportWindow = window.open("", "_blank");
   if (!reportWindow) {
     showStatus("O navegador bloqueou a janela do relatório.", "error");
@@ -2035,65 +3686,110 @@ function openCreditReport(credit) {
         <meta charset="utf-8">
         <title>Análise de crédito ${escapeHtml(documentLabel)}</title>
         <style>
-          @page { size: A4 portrait; margin: 8mm; }
+          @page { size: A4 portrait; margin: 7mm; }
           * { box-sizing: border-box; }
-          body { color: #15202b; font-family: Arial, sans-serif; font-size: 10px; margin: 0; }
-          header { align-items: center; border-bottom: 2px solid #0b84ff; display: flex; gap: 10px; padding-bottom: 8px; }
-          img { background: #10253b; border-radius: 8px; height: 40px; object-fit: contain; padding: 5px; width: 92px; }
+          html, body { height: 100%; }
+          body { color: #15202b; font-family: Arial, sans-serif; font-size: 9px; line-height: 1.24; margin: 0; }
+          main { min-height: 281mm; display: grid; grid-template-rows: auto auto auto 1fr auto; gap: 5px; }
+          header { align-items: center; border-bottom: 2px solid #0b84ff; display: flex; gap: 10px; padding-bottom: 7px; }
+          img { background: #10253b; border-radius: 8px; height: 42px; object-fit: contain; padding: 5px; width: 94px; }
           h1 { font-size: 16px; margin: 0; }
-          h2 { color: #075fb9; font-size: 11px; margin: 10px 0 6px; text-transform: uppercase; }
+          h2 { color: #075fb9; font-size: 9px; margin: 5px 0 4px; text-transform: uppercase; }
           p { margin: 0; }
-          .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-top: 8px; }
-          .card { border: 1px solid #d7e0e8; border-radius: 7px; padding: 7px; }
-          .card span { color: #617181; display: block; font-size: 7px; font-weight: 800; text-transform: uppercase; }
-          .card strong { display: block; font-size: 18px; margin-top: 3px; }
-          dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
-          dl div { border: 1px solid #d7e0e8; border-radius: 7px; padding: 6px; }
-          dt { color: #617181; font-size: 7px; font-weight: 800; text-transform: uppercase; }
-          dd { margin: 3px 0 0; overflow-wrap: anywhere; }
-          ul { margin: 0; padding-left: 16px; }
-          li { margin-bottom: 3px; }
-          .bar { height: 10px; border-radius: 999px; background: #e8edf2; overflow: hidden; }
-          .bar span { display: block; height: 100%; background: #11795f; width: ${Math.min(100, Math.max(0, Number(credit.score_final || 0) / 10))}%; }
-          .approval { border: 1px solid #d7e0e8; border-radius: 7px; display: grid; gap: 5px; margin-top: 8px; padding: 7px; }
-          footer { border-top: 1px solid #d7e0e8; color: #617181; font-size: 8px; margin-top: 10px; padding-top: 5px; }
+          .hero { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 5px; }
+          .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+          .card, .panel { border: 1px solid #d7e0e8; border-radius: 7px; padding: 6px; background: #fff; }
+          .card span, .panel span, dt { color: #617181; display: block; font-size: 6.8px; font-weight: 800; text-transform: uppercase; }
+          .card strong { display: block; font-size: 16px; margin-top: 2px; }
+          .hero-title { display: grid; gap: 3px; }
+          .hero-title strong { font-size: 19px; line-height: 1.05; }
+          .pill { display: inline-flex; align-self: start; width: fit-content; border-radius: 999px; padding: 4px 8px; font-size: 8px; font-weight: 800; background: ${credit.risk_level === "baixo" ? "#e9f8f1" : credit.risk_level === "medio" ? "#fff6df" : "#fff0ee"}; color: ${credit.risk_level === "baixo" ? "#11795f" : credit.risk_level === "medio" ? "#b77900" : "#c43d2f"}; }
+          .hero-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; }
+          dl { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin: 0; }
+          dl div { border: 1px solid #d7e0e8; border-radius: 7px; padding: 5px; min-height: 41px; }
+          dd { margin: 2px 0 0; overflow-wrap: anywhere; }
+          ul { margin: 0; padding-left: 14px; }
+          li { margin-bottom: 2px; }
+          .meter { height: 9px; border-radius: 999px; background: #e8edf2; overflow: hidden; }
+          .meter span { display: block; height: 100%; background: linear-gradient(90deg, #dc2626, #f59e0b, #11795f); width: ${Math.min(100, Math.max(0, Number(credit.score_final || 0) / 10))}%; }
+          .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+          .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+          .mini { color: #617181; font-size: 7.4px; }
+          .section-fill { display: grid; gap: 5px; align-content: start; }
+          footer { border-top: 1px solid #d7e0e8; color: #617181; font-size: 7.4px; padding-top: 4px; }
         </style>
       </head>
       <body>
-        <header>
-          <img src="${location.origin}/assets/logo-scriptt.png" alt="Scriptt">
-          <div>
-            <h1>Resumo individual de crédito</h1>
-            <p>${escapeHtml(company)} · ${escapeHtml(documentLabel)} · Desenvolvido por Scriptt</p>
-          </div>
-        </header>
-        <section class="kpis">
-          <div class="card"><span>Score Serasa</span><strong>${escapeHtml(credit.score_serasa)}</strong></div>
-          <div class="card"><span>Score final</span><strong>${escapeHtml(credit.score_final)}</strong></div>
-          <div class="card"><span>Risco</span><strong>${escapeHtml(credit.risk_label)}</strong></div>
-          <div class="card"><span>Limite</span><strong>${formatMoney(credit.recommended_limit)}</strong></div>
-        </section>
-        <h2>Indicadores</h2>
-        <div class="approval">
-          <strong>Nível de aprovação: ${escapeHtml(approval.label)}</strong>
-          <div class="bar"><span></span></div>
-        </div>
-        <dl>
-          ${reportRow("Prob. inadimplência", `${credit.probabilidade_inadimplencia}%`)}
-          ${reportRow("Restrições", credit.restricoes_financeiras)}
-          ${reportRow("Protestos", credit.protestos)}
-          ${reportRow("Dívidas vencidas", credit.dividas_vencidas)}
-          ${reportRow("Pendências comerciais", credit.pendencias_comerciais)}
-          ${reportRow("Ações judiciais", credit.acoes_judiciais)}
-          ${reportRow("Situação cadastral", credit.situacao_cadastral)}
-          ${reportRow("Decisão", credit.decision)}
-          ${reportRow("Provider", credit.provider)}
-        </dl>
-        <h2>Motivos e recomendações</h2>
-        <ul>${(credit.reasons || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-        <div class="card"><strong>${escapeHtml(credit.decision)}</strong><p>${escapeHtml(credit.recommendation)}</p></div>
-        <footer>Relatório A4 para anexar à documentação da empresa. Dados Serasa em modo ${escapeHtml(credit.environment || "sandbox")} quando sem credenciais reais.</footer>
-        <script>window.print();</script>
+        <main>
+          <header>
+            <img src="${location.origin}/assets/logo-scriptt.png" alt="Scriptt">
+            <div>
+              <h1>Relatório robusto de CPF/CNPJ e crédito</h1>
+              <p>${escapeHtml(company)} · ${escapeHtml(documentLabel)} · Desenvolvido por Scriptt</p>
+            </div>
+          </header>
+          <section class="hero">
+            <article class="panel hero-title">
+              <span>Documento analisado</span>
+              <strong>${escapeHtml(company)}</strong>
+              <p>${escapeHtml(documentLabel)} · ${escapeHtml(credit.document_type || "Documento")} · Provider ${escapeHtml(credit.provider)}</p>
+              <div class="pill">${escapeHtml(credit.risk_label)} · ${escapeHtml(credit.decision)}</div>
+              <p class="mini">${escapeHtml(credit.recommendation)}</p>
+            </article>
+            <article class="panel section-fill">
+              <span>Nível de aprovação</span>
+              <strong style="font-size:18px">${escapeHtml(approval.label)}</strong>
+              <div class="meter"><span></span></div>
+              <div class="hero-grid">
+                <div class="card"><span>Score bureau</span><strong>${escapeHtml(credit.score_serasa)}</strong></div>
+                <div class="card"><span>Score final</span><strong>${escapeHtml(credit.score_final)}</strong></div>
+                <div class="card"><span>Limite</span><strong>${formatMoney(credit.recommended_limit)}</strong></div>
+                <div class="card"><span>Inadimplência</span><strong>${escapeHtml(`${credit.probabilidade_inadimplencia}%`)}</strong></div>
+              </div>
+            </article>
+          </section>
+          <section class="grid-2">
+            <article class="panel section-fill">
+              <h2>Painel de risco</h2>
+              <dl>
+                ${reportRow("Restrições", credit.restricoes_financeiras)}
+                ${reportRow("Protestos", credit.protestos)}
+                ${reportRow("Dívidas vencidas", credit.dividas_vencidas)}
+                ${reportRow("Pendências", credit.pendencias_comerciais)}
+                ${reportRow("Ações judiciais", credit.acoes_judiciais)}
+                ${reportRow("Situação cadastral", credit.situacao_cadastral)}
+                ${reportRow("Ambiente", credit.environment || "sandbox")}
+                ${reportRow("Documento", documentLabel)}
+              </dl>
+            </article>
+            <article class="panel section-fill">
+              <h2>Orientação executiva</h2>
+              <ul>${guidance.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+            </article>
+          </section>
+          <section class="grid-2">
+            <article class="panel section-fill">
+              <h2>Motivos da decisão</h2>
+              <ul>${(credit.reasons || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+            </article>
+            <article class="panel section-fill">
+              <h2>Checklist de validação</h2>
+              <ul>${checklist.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+            </article>
+          </section>
+          ${internal ? `
+            <section class="panel section-fill">
+              <h2>Histórico interno complementar</h2>
+              <div class="grid-3">
+                <div class="card"><span>Compras</span><strong>${escapeHtml(String(internal.compras?.documentos_total || 0))}</strong><p class="mini">${escapeHtml(formatMoney(internal.compras?.valor_total))}</p></div>
+                <div class="card"><span>Atraso médio</span><strong>${escapeHtml(String(internal.indicadores?.atraso_medio_dias || 0))}d</strong><p class="mini">Pontualidade ${escapeHtml(String(internal.indicadores?.pontualidade_percentual || 0))}%</p></div>
+                <div class="card"><span>Score interno</span><strong>${escapeHtml(String(internal.indicadores?.score_interno ?? "-"))}</strong><p class="mini">${escapeHtml(internal.parecer?.titulo || "Histórico GEST")}</p></div>
+              </div>
+            </section>
+          ` : ""}
+          <footer>Documento A4 robusto para apoio à validação cadastral, análise de crédito e definição de limite. Dados de bureau, cadastro e histórico interno devem ser confirmados conforme a política comercial vigente.</footer>
+          <script>window.print();</script>
+        </main>
       </body>
     </html>
   `);
@@ -2110,6 +3806,9 @@ function openPrintableReport(payload) {
   const credit = lastCreditAnalysis;
   const approval = approvalLevel(credit);
   const internal = lastInternalHistory?.cliente_cadastrado ? lastInternalHistory : null;
+  const guidance = buildDecisionGuidance(credit, internal);
+  const checklist = buildValidationChecklist(payload, credit, internal, refs);
+  const riskSnapshot = buildRiskSnapshot(credit, internal, analysis);
   const cityUf = [dados.municipio, dados.uf].filter(Boolean).join(" - ");
   const endereco = [
     dados.tipo_logradouro,
@@ -2137,7 +3836,7 @@ function openPrintableReport(payload) {
           @page { size: A4 portrait; margin: 6mm; }
           * { box-sizing: border-box; }
           html, body { height: 100%; }
-          body { color: #17202a; font-family: Arial, sans-serif; font-size: 8.8px; line-height: 1.18; margin: 0; }
+          body { color: #17202a; font-family: Arial, sans-serif; font-size: 8.6px; line-height: 1.18; margin: 0; }
           header { align-items: center; border-bottom: 2px solid #0b84ff; display: flex; gap: 8px; padding-bottom: 5px; }
           img { background: #10253b; border-radius: 6px; height: 32px; object-fit: contain; padding: 4px; width: 78px; }
           h1 { font-size: 14px; margin: 0 0 1px; }
@@ -2151,8 +3850,9 @@ function openPrintableReport(payload) {
           th, td { border: 1px solid #d7dee5; padding: 3px; text-align: left; vertical-align: top; }
           th { background: #eef6ff; font-size: 6.5px; text-transform: uppercase; }
           footer { border-top: 1px solid #d7dee5; color: #52616b; font-size: 7px; margin-top: 4px; padding-top: 3px; }
-          .page { height: 285mm; overflow: hidden; width: 198mm; }
+          .page { min-height: 285mm; width: 198mm; display: grid; align-content: start; gap: 4px; }
           .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+          .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4px; }
           .card { border: 1px solid #d7dee5; border-radius: 5px; margin-top: 3px; padding: 4px; }
           .card strong { display: block; font-size: 8px; margin-bottom: 1px; }
           .badge { border-radius: 999px; background: #e8f3ff; color: #075fb9; display: inline-block; font-weight: 700; padding: 3px 6px; }
@@ -2164,11 +3864,14 @@ function openPrintableReport(payload) {
           .risk-chart .meter { background: #e8edf2; border-radius: 999px; height: 7px; overflow: hidden; }
           .risk-chart .meter span { background: linear-gradient(90deg, #dc2626, #f59e0b, #11795f); display: block; height: 100%; width: ${approval.score}%; }
           .risk-cross { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
+          .risk-cross .card { margin-top: 0; }
           .internal-box { border: 1px solid #d7dee5; border-radius: 5px; margin-top: 4px; padding: 4px; }
           .internal-box strong { display: block; font-size: 8px; margin-bottom: 2px; }
           .activity-list { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 4px; margin: 0; padding: 0; list-style: none; }
           .activity-list li { border: 1px solid #d7dee5; border-radius: 4px; padding: 2px 3px; }
           .avoid-break { break-inside: avoid; page-break-inside: avoid; }
+          .hero .card { margin-top: 0; }
+          .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
         </style>
       </head>
       <body>
@@ -2180,6 +3883,27 @@ function openPrintableReport(payload) {
               <p>Desenvolvido por Scriptt · ${escapeHtml(new Date().toLocaleDateString("pt-BR"))}</p>
             </div>
           </header>
+          <section class="hero avoid-break">
+            <div class="card">
+              <span>Visão executiva</span>
+              <strong>${escapeHtml(dados.razao_social || dados.nome_fantasia || "Empresa não informada")}</strong>
+              <p>${escapeHtml(payload.cnpj_formatado || formatCnpj(dados.cnpj))} · ${escapeHtml(cityUf || "Cidade/UF não informadas")} · ${escapeHtml(dados.descricao_situacao_cadastral || "-")}</p>
+              <p class="minor">Natureza: ${escapeHtml(dados.natureza_juridica || "-")} · Porte: ${escapeHtml(dados.porte || "-")} · Abertura: ${escapeHtml(formatDate(dados.data_inicio_atividade) || "-")}</p>
+              <p class="minor">Capital social: ${escapeHtml(formatMoney(dados.capital_social))} · CNAE principal: ${escapeHtml(formatCnae(dados))}</p>
+            </div>
+            <div class="card">
+              <span>Semáforo de aprovação</span>
+              <strong>${escapeHtml(credit?.risk_label || analysis.label)}</strong>
+              <div class="risk-chart" style="margin:3px 0 0">
+                <strong>${escapeHtml(approval.label)}</strong>
+                <div class="meter"><span></span></div>
+                <p class="minor">${escapeHtml(credit?.recommendation || "Concluir validação cadastral, histórico interno e referências antes da liberação.")}</p>
+              </div>
+            </div>
+          </section>
+          <section class="kpi-grid avoid-break">
+            ${riskSnapshot.map((item) => `<div class="card"><span>${escapeHtml(item.label)}</span><strong>${escapeHtml(item.value)}</strong><p class="minor">${escapeHtml(item.note)}</p></div>`).join("")}
+          </section>
           <h2>Identificação cadastral</h2>
           <dl>
             ${reportRow("CNPJ", payload.cnpj_formatado || formatCnpj(dados.cnpj))}
@@ -2218,7 +3942,7 @@ function openPrintableReport(payload) {
             <section class="avoid-break">
               <h2>Recomendações <span class="badge">${escapeHtml(analysis.label)}</span></h2>
               <div class="compact-list">
-                ${analysis.items.slice(0, 4).map((item) => `
+                ${analysis.items.slice(0, 5).map((item) => `
                   <div class="card">
                     <strong>${escapeHtml(item.title)}</strong>
                     <p>${escapeHtml(item.text)}</p>
@@ -2243,8 +3967,22 @@ function openPrintableReport(payload) {
               ${reportRow("Prob. inadimplência", `${credit.probabilidade_inadimplencia}%`)}
               ${reportRow("Restrições", credit.restricoes_financeiras)}
               ${reportRow("Protestos", credit.protestos)}
+              ${reportRow("Dívidas vencidas", credit.dividas_vencidas)}
+              ${reportRow("Pendências", credit.pendencias_comerciais)}
+              ${reportRow("Ações judiciais", credit.acoes_judiciais)}
+              ${reportRow("Provider", credit.provider)}
             </dl>
           ` : ""}
+          <div class="grid avoid-break">
+            <section class="card">
+              <span>Checklist de validação</span>
+              <ul>${checklist.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+            </section>
+            <section class="card">
+              <span>Orientações de decisão</span>
+              <ul>${guidance.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+            </section>
+          </div>
           <h2>Histórico interno GEST</h2>
           ${internal ? `
             <div class="internal-box">
@@ -2308,6 +4046,64 @@ function reportActivityList(items) {
   `;
 }
 
+function buildRiskSnapshot(credit, internal, analysis) {
+  return [
+    {
+      label: "Status",
+      value: credit?.risk_label || analysis?.label || "Em validação",
+      note: credit?.decision || "Validar dados cadastrais e sinais internos",
+    },
+    {
+      label: "Limite sugerido",
+      value: credit ? formatMoney(credit.recommended_limit) : "Em análise",
+      note: credit ? `Score ${credit.score_final}` : "Executar bureau para calcular",
+    },
+    {
+      label: "Referências",
+      value: String((references[onlyDigits(lastPayload?.cnpj_formatado || lastPayload?.dados?.cnpj || "")] || []).length),
+      note: "Comerciais anexadas à ficha",
+    },
+    {
+      label: "Histórico interno",
+      value: internal ? String(internal.indicadores?.score_interno ?? "-") : "Sem base",
+      note: internal ? `Pontualidade ${internal.indicadores?.pontualidade_percentual || 0}%` : "Cliente fora do CADCLI",
+    },
+  ];
+}
+
+function buildDecisionGuidance(credit, internal) {
+  const guidance = [];
+  if (!credit) {
+    guidance.push("Cadastro pronto para validação documental e impressão.");
+    guidance.push("Executar bureau antes de liberar limite em venda a prazo.");
+  } else if (credit.risk_level === "baixo") {
+    guidance.push("Aprovação favorecida, mantendo monitoramento periódico.");
+    guidance.push("Usar o limite sugerido como teto inicial, não como automático definitivo.");
+  } else if (credit.risk_level === "medio") {
+    guidance.push("Trabalhar com limite reduzido e revisão gerencial em pedidos maiores.");
+    guidance.push("Pedir referências, confirmar dados cadastrais e reavaliar recorrência.");
+  } else {
+    guidance.push("Bloquear aprovação automática e exigir validação humana.");
+    guidance.push("Solicitar garantias, entrada ou redução de prazo antes de vender.");
+  }
+  if (internal?.cliente_cadastrado) {
+    guidance.push(`Histórico interno: ${internal.parecer?.opiniao || "usar dados de compras e pagamentos como contrapeso da decisão."}`);
+  }
+  return guidance.slice(0, 5);
+}
+
+function buildValidationChecklist(payload, credit, internal, refs) {
+  const dados = payload?.dados || {};
+  return [
+    dados.razao_social ? "Razão social conferida." : "Confirmar razão social e documento fiscal.",
+    dados.logradouro ? "Endereço cadastral disponível." : "Confirmar endereço completo e CEP.",
+    Array.isArray(dados.qsa) && dados.qsa.length ? `QSA carregado com ${dados.qsa.length} integrante(s).` : "Validar quadro societário e responsáveis legais.",
+    refs.length ? `${refs.length} referência(s) comercial(is) adicionada(s).` : "Adicionar referências comerciais antes da liberação.",
+    credit ? `Bureau consultado em ${credit.provider}.` : "Executar bureau para completar score e restrições.",
+    internal?.cliente_cadastrado ? "Histórico interno do GEST disponível." : "Sem histórico interno: considerar política mais conservadora.",
+  ].slice(0, 6);
+}
+
 function downloadFile(filename, content, type) {
   const blob = new Blob([type.startsWith("text/csv") ? "\ufeff" + content : content], { type });
   const url = URL.createObjectURL(blob);
@@ -2329,6 +4125,7 @@ async function saveCurrentConsultation() {
   const content = {
     saved_at: new Date().toISOString(),
     storage: adminSettings,
+    credit_subject_name: lastCreditSubjectName,
     cnpj_payload: lastPayload,
     credit_analysis: lastCreditAnalysis,
     internal_history: lastInternalHistory,
@@ -2671,6 +4468,11 @@ function escapeHtml(value) {
 
 resultBox.innerHTML = emptyResult();
 renderSerasaEmpty();
+renderSerasaPremiumEmpty();
+renderCreditWorkbench();
 renderHistory();
 renderDashboard();
+setPermissionInputs(adminUserRole?.value || "Admin");
 setActiveView("dashboard");
+showLogin();
+bootstrapAuth();

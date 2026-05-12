@@ -13,6 +13,7 @@ def listar_clientes(
     termo: str = "",
     codigo: str = "",
     cnpj: str = "",
+    cpf: str = "",
     data_inicio: str = "",
     data_fim: str = "",
 ) -> list[dict]:
@@ -21,6 +22,7 @@ def listar_clientes(
         termo=termo,
         codigo=codigo,
         cnpj=cnpj,
+        cpf=cpf,
         data_inicio=data_inicio,
         data_fim=data_fim,
     )
@@ -38,7 +40,7 @@ SELECT TOP ({limit})
   CONVERT(varchar(10), DATCAD, 23)
 FROM dbo.CADCLI
 WHERE ISNULL(CGCCLI,'') <> ''
-  AND LEN(REPLACE(REPLACE(REPLACE(REPLACE(CGCCLI,'.',''),'/',''),'-',''),' ','')) = 14
+  AND LEN(REPLACE(REPLACE(REPLACE(REPLACE(CGCCLI,'.',''),'/',''),'-',''),' ','')) IN (11, 14)
   {filtro}
 ORDER BY NOMCLI;
 """
@@ -49,16 +51,24 @@ ORDER BY NOMCLI;
         if len(row) < 9:
             continue
 
-        cnpj = row[3].strip()
-        digitos = normalizar_cnpj(cnpj)
+        documento = row[3].strip()
+        digitos = _normalizar_documento(documento)
+        tipo_documento = _tipo_documento(digitos)
         clientes.append(
             {
                 "codigo": row[0].strip(),
                 "nome": row[1].strip(),
                 "fantasia": row[2].strip(),
-                "cnpj": formatar_cnpj(digitos),
-                "cnpj_digitos": digitos,
-                "cnpj_valido": validar_cnpj(digitos),
+                "documento": _formatar_documento(digitos),
+                "documento_digitos": digitos,
+                "documento_tipo": tipo_documento,
+                "documento_valido": _documento_valido(digitos),
+                "cnpj": formatar_cnpj(digitos) if tipo_documento == "CNPJ" else "",
+                "cnpj_digitos": digitos if tipo_documento == "CNPJ" else "",
+                "cnpj_valido": validar_cnpj(digitos) if tipo_documento == "CNPJ" else False,
+                "cpf": _formatar_cpf(digitos) if tipo_documento == "CPF" else "",
+                "cpf_digitos": digitos if tipo_documento == "CPF" else "",
+                "cpf_valido": _validar_cpf(digitos) if tipo_documento == "CPF" else False,
                 "cidade": row[4].strip(),
                 "uf": row[5].strip(),
                 "inscricao_estadual": row[6].strip(),
@@ -235,17 +245,30 @@ WHERE CODCLI = {codcli};
 def _resumo_compras(codcli: int) -> dict:
     sql = f"""
 SET NOCOUNT ON;
+WITH movimentos AS (
+  SELECT
+    DOCUM,
+    DATSAI,
+    CASE
+      WHEN ISNULL(totalv,0) > 0 THEN ISNULL(totalv,0)
+      WHEN ISNULL(VLRSAI,0) > 0 AND ISNULL(QUASAI,0) > 0 THEN ISNULL(VLRSAI,0) * ISNULL(QUASAI,1)
+      WHEN ISNULL(totalmc,0) > 0 THEN ISNULL(totalmc,0)
+      WHEN ISNULL(vlrent,0) > 0 THEN ISNULL(vlrent,0)
+      ELSE 0
+    END AS valor_movimento
+  FROM dbo.MOVSAI
+  WHERE CODCLI = {codcli}
+)
 SELECT
   COUNT(DISTINCT DOCUM),
-  ISNULL(SUM(ISNULL(totalv, ISNULL(VLRSAI,0) * ISNULL(QUASAI,1))),0),
-  ISNULL(SUM(CASE WHEN DATSAI >= DATEADD(month, -12, GETDATE()) THEN ISNULL(totalv, ISNULL(VLRSAI,0) * ISNULL(QUASAI,1)) ELSE 0 END),0),
+  ISNULL(SUM(valor_movimento),0),
+  ISNULL(SUM(CASE WHEN DATSAI >= DATEADD(month, -12, GETDATE()) THEN valor_movimento ELSE 0 END),0),
   COUNT(DISTINCT CASE WHEN DATSAI >= DATEADD(month, -12, GETDATE()) THEN DOCUM END),
   CONVERT(varchar(10), MIN(DATSAI), 23),
   CONVERT(varchar(10), MAX(DATSAI), 23),
   ISNULL(DATEDIFF(day, MIN(DATSAI), MAX(DATSAI)),0),
   ISNULL(DATEDIFF(day, MAX(DATSAI), GETDATE()),0)
-FROM dbo.MOVSAI
-WHERE CODCLI = {codcli};
+FROM movimentos;
 """
     row = _first_row(sql, 8)
     documentos_total = _int(row[0])
@@ -449,6 +472,7 @@ def _montar_filtro(
     termo: str = "",
     codigo: str = "",
     cnpj: str = "",
+    cpf: str = "",
     data_inicio: str = "",
     data_fim: str = "",
 ) -> str:
@@ -476,6 +500,13 @@ def _montar_filtro(
             f"LIKE '%{cnpj_digitos}%'"
         )
 
+    cpf_digitos = _normalizar_documento(cpf)
+    if len(cpf_digitos) == 11:
+        filtros.append(
+            "REPLACE(REPLACE(REPLACE(REPLACE(CGCCLI,'.',''),'/',''),'-',''),' ','') "
+            f"LIKE '%{cpf_digitos}%'"
+        )
+
     if _data_valida(data_inicio):
         filtros.append(f"DATCAD >= '{data_inicio}'")
 
@@ -497,3 +528,55 @@ def _data_valida(valor: str) -> bool:
         and len(partes[2]) == 2
         and all(parte.isdigit() for parte in partes)
     )
+
+
+def _normalizar_documento(valor: str) -> str:
+    return "".join(ch for ch in str(valor or "") if ch.isdigit())
+
+
+def _tipo_documento(valor: str) -> str:
+    if len(valor) == 14:
+        return "CNPJ"
+    if len(valor) == 11:
+        return "CPF"
+    return "Documento"
+
+
+def _formatar_documento(valor: str) -> str:
+    if len(valor) == 14:
+        return formatar_cnpj(valor)
+    if len(valor) == 11:
+        return _formatar_cpf(valor)
+    return valor
+
+
+def _formatar_cpf(valor: str) -> str:
+    digitos = _normalizar_documento(valor)
+    if len(digitos) != 11:
+        return digitos
+    return f"{digitos[:3]}.{digitos[3:6]}.{digitos[6:9]}-{digitos[9:]}"
+
+
+def _documento_valido(valor: str) -> bool:
+    if len(valor) == 14:
+        return validar_cnpj(valor)
+    if len(valor) == 11:
+        return _validar_cpf(valor)
+    return False
+
+
+def _validar_cpf(valor: str) -> bool:
+    digitos = _normalizar_documento(valor)
+    if len(digitos) != 11 or len(set(digitos)) == 1:
+        return False
+
+    soma = sum(int(digitos[idx]) * (10 - idx) for idx in range(9))
+    resto = (soma * 10) % 11
+    primeiro = 0 if resto == 10 else resto
+    if primeiro != int(digitos[9]):
+        return False
+
+    soma = sum(int(digitos[idx]) * (11 - idx) for idx in range(10))
+    resto = (soma * 10) % 11
+    segundo = 0 if resto == 10 else resto
+    return segundo == int(digitos[10])
