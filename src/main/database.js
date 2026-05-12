@@ -1,7 +1,11 @@
 const path = require('path');
+const fs = require('fs');
 const Database = require('better-sqlite3');
 
-const dbPath = path.join(process.cwd(), 'data', 'cnpj360.db');
+const dataDir = process.env.CNPJ360_DATA_DIR || path.join(process.cwd(), 'data');
+fs.mkdirSync(dataDir, { recursive: true });
+
+const dbPath = path.join(dataDir, 'cnpj360.db');
 const db = new Database(dbPath);
 
 function initDatabase() {
